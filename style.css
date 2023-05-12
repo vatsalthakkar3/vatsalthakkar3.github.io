@@ -932,6 +932,13 @@ main {
   border-radius: inherit;
 }
 
+.skill-image{
+  display:flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+
 /*-----------------------------------*\
   #PORTFOLIO
 \*-----------------------------------*/
