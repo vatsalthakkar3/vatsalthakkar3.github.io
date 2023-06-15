@@ -1645,6 +1645,7 @@ textarea.form-input::-webkit-resizer {
   .project-img,
   .blog-banner-box {
     border-radius: 16px;
+    height: 10rem;
   }
 
   .blog-posts-list {
