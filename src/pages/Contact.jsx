@@ -34,23 +34,23 @@ export default function Contact({ showToast }) {
   ]
 
   return (
-    <div className="glass rounded-2xl p-6 lg:p-8 space-y-8">
+    <div className="glass rounded-2xl p-6 lg:p-8 flex flex-col h-full">
 
       <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-100
-                     pb-2.5 border-b-2 border-accent/40 w-fit">
+                     pb-2.5 border-b-2 border-accent/40 w-fit mb-8">
         Contact
       </h2>
 
-      <div className="grid lg:grid-cols-[1fr_252px] gap-6 items-start">
+      <div className="grid lg:grid-cols-[1fr_252px] gap-6 items-start flex-1 min-h-0">
 
         {/* Left — form */}
-        <div>
+        <div className="flex flex-col h-full">
           <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">
             Send a message
           </h3>
 
           {sent ? (
-            <div className="flex flex-col items-center gap-3 py-16 text-center">
+            <div className="flex flex-col items-center justify-center gap-3 flex-1 text-center">
               <FiCheckCircle size={40} className="text-emerald-400" />
               <p className="font-semibold text-slate-900 dark:text-slate-100">Message sent</p>
               <p className="text-sm text-slate-500 dark:text-slate-400">
@@ -58,7 +58,7 @@ export default function Contact({ showToast }) {
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-3.5">
+            <form onSubmit={handleSubmit} className="flex flex-col flex-1 gap-3.5">
               <div className="grid sm:grid-cols-2 gap-3.5">
                 <div>
                   <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5">
@@ -75,13 +75,13 @@ export default function Contact({ showToast }) {
                          placeholder="you@example.com" required className={inp} />
                 </div>
               </div>
-              <div>
+              <div className="flex flex-col flex-1">
                 <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5">
                   Message
                 </label>
                 <textarea value={msg} onChange={e => setMsg(e.target.value)}
-                          placeholder="Your message" required rows={6}
-                          className={`${inp} resize-none`} />
+                          placeholder="Your message" required
+                          className={`${inp} resize-none flex-1 min-h-[120px]`} />
               </div>
               <button
                 type="submit"

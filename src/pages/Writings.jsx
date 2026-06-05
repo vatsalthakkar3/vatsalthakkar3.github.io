@@ -1,6 +1,12 @@
 import { useState } from 'react'
-import { FiGithub, FiClock } from 'react-icons/fi'
+import { FiGithub, FiClock, FiFileText, FiDatabase, FiExternalLink } from 'react-icons/fi'
 import { blogPosts, research } from '../data'
+
+const LINK_ICONS = {
+  github:  <FiGithub size={11} />,
+  paper:   <FiFileText size={11} />,
+  dataset: <FiDatabase size={11} />,
+}
 
 export default function Writings({ openPost }) {
   const [tab, setTab] = useState('blog')
@@ -90,14 +96,14 @@ export default function Writings({ openPost }) {
                                text-accent bg-accent/[0.09] dark:bg-accent/[0.12]
                                border border-accent/[0.18] dark:border-accent/[0.20]
                                px-2.5 py-0.5 rounded-full mb-3">
-                Research Project
+                {pub.badge ?? 'Research Project'}
               </span>
               <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-1">{pub.title}</h3>
               <p className="text-xs italic text-slate-400 dark:text-slate-600 mb-1">{pub.venue}</p>
               <p className="text-xs text-slate-500 dark:text-slate-500 mb-3">
                 {pub.authors.map((a, i) => (
                   <span key={a}>
-                    {i === 0
+                    {a.includes('Vatsal')
                       ? <strong className="font-semibold text-slate-700 dark:text-slate-300">{a}</strong>
                       : a}
                     {i < pub.authors.length - 1 ? ', ' : ''}
@@ -106,13 +112,13 @@ export default function Writings({ openPost }) {
               </p>
               <p className="text-xs text-slate-500 dark:text-slate-500 leading-relaxed mb-3">{pub.desc}</p>
               <div className="flex gap-2">
-                {pub.links.map(({ label, url }) => (
+                {pub.links.map(({ label, url, icon }) => (
                   <a key={label} href={url} target="_blank" rel="noopener"
                      className="btn-tactile flex items-center gap-1.5 px-3 py-1.5 rounded-lg
                                 text-xs font-semibold
                                 border border-accent/25 text-accent bg-accent/[0.06]
                                 hover:bg-accent/[0.11] transition-colors duration-150">
-                    <FiGithub size={11}/> {label}
+                    {LINK_ICONS[icon] ?? <FiExternalLink size={11} />} {label}
                   </a>
                 ))}
               </div>

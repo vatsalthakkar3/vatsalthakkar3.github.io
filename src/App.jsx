@@ -133,8 +133,8 @@ export default function App() {
               )}
             </div>
 
-            <div id="main-scroll" className="flex-1 overflow-y-auto mt-4">
-              <div key={activePost || activePage} className="page-enter">
+            <div id="main-scroll" className="flex-1 overflow-y-auto mt-4 flex flex-col">
+              <div key={activePost || activePage} className="page-enter flex-1">
                 {Post
                   ? <Post onBack={closePost} />
                   : <Page showToast={showToast} openPost={openPost} />
