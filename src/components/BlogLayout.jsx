@@ -32,11 +32,18 @@ export const mdxComponents = {
       <span>{children}</span>
     </li>
   ),
-  pre: ({ children }) => (
-    <pre className="my-5 overflow-x-auto rounded-xl glass-inner p-4 font-mono text-[12.5px]
-                    text-slate-300 dark:text-slate-300 leading-relaxed">
-      {children}
-    </pre>
+  pre: ({ children, className, ...props }) => (
+    <div className="my-5 rounded-xl glass-inner overflow-hidden">
+      <pre
+        {...props}
+        className={[
+          'overflow-x-auto p-4 font-mono text-[12.5px] leading-relaxed',
+          className ?? '',
+        ].join(' ')}
+      >
+        {children}
+      </pre>
+    </div>
   ),
   code: ({ children, className }) =>
     className ? (

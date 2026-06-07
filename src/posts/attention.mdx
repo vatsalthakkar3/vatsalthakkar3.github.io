@@ -41,6 +41,19 @@ The attention score between two words is computed as:
 Attention(Q, K, V) = softmax(QKᵀ / √d_k) · V
 ```
 
+Here is a minimal Python implementation:
+
+```python
+import torch
+import torch.nn.functional as F
+
+def scaled_dot_product_attention(Q, K, V):
+    d_k = Q.size(-1)
+    scores = torch.matmul(Q, K.transpose(-2, -1)) / d_k ** 0.5
+    weights = F.softmax(scores, dim=-1)
+    return torch.matmul(weights, V), weights
+```
+
 Here `d_k` is the dimension of the key vectors. The `√d_k` scaling prevents the dot products from getting too large before the softmax, which would push gradients toward zero.
 
 The result is a weighted sum of all value vectors, where the weights tell you how much each position should attend to every other position.

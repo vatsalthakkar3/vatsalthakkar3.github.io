@@ -144,3 +144,19 @@
   .page-enter, .cursor-blink, .pulse-dot, .avatar-ring { animation: none; opacity: 1; transform: none; }
   .hover-lift, .btn-tactile { transition: none; }
 }
+
+/* ── Shiki syntax highlighting — dual theme via CSS variables ─────────────── */
+.shiki, .shiki span {
+  color: var(--shiki-light) !important;
+  background-color: transparent !important;
+  font-style: var(--shiki-light-font-style) !important;
+  font-weight: var(--shiki-light-font-weight) !important;
+  text-decoration: var(--shiki-light-text-decoration) !important;
+}
+.dark .shiki, .dark .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: transparent !important;
+  font-style: var(--shiki-dark-font-style) !important;
+  font-weight: var(--shiki-dark-font-weight) !important;
+  text-decoration: var(--shiki-dark-text-decoration) !important;
+}
