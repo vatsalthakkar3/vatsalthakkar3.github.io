@@ -14,6 +14,12 @@ import Toast from './components/Toast'
 
 const PAGES = { about: About, resume: Resume, portfolio: Portfolio, writings: Writings, contact: Contact }
 
+function parseHash() {
+  const raw = window.location.hash.replace(/^#\/?/, '')
+  if (raw.startsWith('blog/')) return { page: 'writings', post: raw.slice(5) }
+  return { page: Object.keys(PAGES).includes(raw) ? raw : 'about', post: null }
+}
+
 const POSTS = {
   nerf:       { Component: NeRFPost,       title: 'NeRF: Representing Scenes as Neural Radiance Fields' },
   activation: { Component: ActivationPost, title: 'Why Do We Need Non-Linear Activation Functions?' },
@@ -35,10 +41,27 @@ const DARK_BG = {
 const LIGHT_BG = { backgroundColor: '#f6f8fc' }
 
 export default function App() {
-  const [activePage, setActivePage] = useState('about')
-  const [activePost, setActivePost] = useState(null)
+  const [activePage, setActivePage] = useState(() => parseHash().page)
+  const [activePost, setActivePost] = useState(() => parseHash().post)
   const [dark, setDark] = useState(() => localStorage.getItem('theme') !== 'light')
   const [toast, setToast] = useState('')
+
+  // Sync hash → state (browser back/forward)
+  useEffect(() => {
+    const onHashChange = () => {
+      const { page, post } = parseHash()
+      setActivePage(page)
+      setActivePost(post)
+    }
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [])
+
+  // Sync state → hash
+  useEffect(() => {
+    const target = activePost ? `#/blog/${activePost}` : `#/${activePage}`
+    if (window.location.hash !== target) window.location.hash = target
+  }, [activePage, activePost])
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark)
@@ -50,25 +73,23 @@ export default function App() {
     setTimeout(() => setToast(''), 2500)
   }
 
-  const navigate = (p) => {
-    setActivePage(p)
-    setActivePost(null)
+  const scrollTop = () => {
     if (window.innerWidth < 1024) {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } else {
-      const panel = document.getElementById('main-scroll')
-      if (panel) panel.scrollTo({ top: 0, behavior: 'smooth' })
+      document.getElementById('main-scroll')?.scrollTo({ top: 0, behavior: 'smooth' })
     }
+  }
+
+  const navigate = (p) => {
+    setActivePage(p)
+    setActivePost(null)
+    scrollTop()
   }
 
   const openPost = (slug) => {
     setActivePost(slug)
-    if (window.innerWidth < 1024) {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    } else {
-      const panel = document.getElementById('main-scroll')
-      if (panel) panel.scrollTo({ top: 0, behavior: 'smooth' })
-    }
+    scrollTop()
   }
 
   const closePost = () => {
