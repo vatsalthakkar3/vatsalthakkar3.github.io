@@ -12,9 +12,9 @@
   --ease-out:   cubic-bezier(0.23, 1, 0.32, 1);
   --ease-inout: cubic-bezier(0.77, 0, 0.175, 1);
 }
-.dark {
-  --accent: 96 165 250;
-}
+.dark          { --accent: 96 165 250; }   /* blue-400  */
+.amber         { --accent: 217 119 6; }    /* amber-600 */
+.dark.amber    { --accent: 251 191 36; }   /* amber-400 */
 
 @layer base {
   * { box-sizing: border-box; }

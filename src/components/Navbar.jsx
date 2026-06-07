@@ -5,7 +5,7 @@ const LABELS = {
   writings: 'Writings', contact: 'Contact',
 }
 
-export default function Navbar({ pages, active, onChange, dark, onToggleTheme }) {
+export default function Navbar({ pages, active, onChange, dark, onToggleTheme, accent, onSetAccent }) {
   return (
     <nav className="glass rounded-2xl">
       <div className="flex items-center p-1.5 gap-0.5">
@@ -30,7 +30,29 @@ export default function Navbar({ pages, active, onChange, dark, onToggleTheme })
           ))}
         </ul>
 
-        <div className="flex items-center pl-1.5 ml-0.5 border-l border-black/[0.06] dark:border-white/[0.07]">
+        <div className="flex items-center gap-1.5 pl-1.5 ml-0.5 border-l border-black/[0.06] dark:border-white/[0.07]">
+          <div className="flex items-center gap-1 px-1">
+            <button
+              onClick={() => onSetAccent('blue')}
+              aria-label="Blue accent" title="Blue"
+              className={[
+                'w-3 h-3 rounded-full bg-[#2563eb] transition-all duration-150',
+                accent === 'blue'
+                  ? 'ring-2 ring-offset-1 ring-[#2563eb] dark:ring-offset-[#090e1c]'
+                  : 'opacity-40 hover:opacity-70',
+              ].join(' ')}
+            />
+            <button
+              onClick={() => onSetAccent('amber')}
+              aria-label="Amber accent" title="Amber"
+              className={[
+                'w-3 h-3 rounded-full bg-[#d97706] transition-all duration-150',
+                accent === 'amber'
+                  ? 'ring-2 ring-offset-1 ring-[#d97706] dark:ring-offset-[#090e1c]'
+                  : 'opacity-40 hover:opacity-70',
+              ].join(' ')}
+            />
+          </div>
           <button
             onClick={onToggleTheme}
             aria-label="Toggle theme"

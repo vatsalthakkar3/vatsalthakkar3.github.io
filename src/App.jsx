@@ -15,6 +15,31 @@ import Toast from './components/Toast'
 
 const PAGES = { about: About, resume: Resume, portfolio: Portfolio, writings: Writings, contact: Contact }
 
+function AccentSwatch({ accent, onSetAccent }) {
+  return (
+    <div className="flex items-center gap-1 px-1">
+      <button
+        onClick={() => onSetAccent('blue')}
+        aria-label="Blue accent"
+        title="Blue"
+        className={[
+          'w-3 h-3 rounded-full bg-[#2563eb] transition-all duration-150',
+          accent === 'blue' ? 'ring-2 ring-offset-1 ring-[#2563eb] dark:ring-offset-[#090e1c]' : 'opacity-40 hover:opacity-70',
+        ].join(' ')}
+      />
+      <button
+        onClick={() => onSetAccent('amber')}
+        aria-label="Amber accent"
+        title="Amber"
+        className={[
+          'w-3 h-3 rounded-full bg-[#d97706] transition-all duration-150',
+          accent === 'amber' ? 'ring-2 ring-offset-1 ring-[#d97706] dark:ring-offset-[#090e1c]' : 'opacity-40 hover:opacity-70',
+        ].join(' ')}
+      />
+    </div>
+  )
+}
+
 function parseHash() {
   const raw = window.location.hash.replace(/^#\/?/, '')
   if (raw.startsWith('blog/')) return { page: 'writings', post: raw.slice(5) }
@@ -54,6 +79,7 @@ export default function App() {
   const [activePage, setActivePage] = useState(() => parseHash().page)
   const [activePost, setActivePost] = useState(() => parseHash().post)
   const [dark, setDark] = useState(() => localStorage.getItem('theme') !== 'light')
+  const [accent, setAccent] = useState(() => localStorage.getItem('accent') || 'blue')
   const [toast, setToast] = useState('')
 
   // Sync hash → state (browser back/forward)
@@ -77,6 +103,11 @@ export default function App() {
     document.documentElement.classList.toggle('dark', dark)
     localStorage.setItem('theme', dark ? 'dark' : 'light')
   }, [dark])
+
+  useEffect(() => {
+    document.documentElement.classList.toggle('amber', accent === 'amber')
+    localStorage.setItem('accent', accent)
+  }, [accent])
 
   const showToast = (msg) => {
     setToast(msg)
@@ -145,6 +176,7 @@ export default function App() {
                     <span className="flex-1 text-xs text-slate-400 dark:text-slate-500 truncate min-w-0">
                       {postTitle}
                     </span>
+                    <AccentSwatch accent={accent} onSetAccent={setAccent} />
                     <button onClick={() => setDark(d => !d)} aria-label="Toggle theme"
                       className="btn-tactile w-8 h-8 rounded-xl glass-inner flex items-center justify-center
                                  text-slate-400 dark:text-slate-500 hover:text-accent
@@ -160,6 +192,8 @@ export default function App() {
                   onChange={navigate}
                   dark={dark}
                   onToggleTheme={() => setDark(d => !d)}
+                  accent={accent}
+                  onSetAccent={setAccent}
                 />
               )}
             </div>
@@ -199,6 +233,7 @@ export default function App() {
                     <FiArrowLeft size={14} /> Writings
                   </button>
                   <span className="flex-1 text-xs text-slate-400 truncate min-w-0">{postTitle}</span>
+                  <AccentSwatch accent={accent} onSetAccent={setAccent} />
                   <button onClick={() => setDark(d => !d)} aria-label="Toggle theme"
                     className="btn-tactile w-8 h-8 rounded-xl glass-inner flex items-center justify-center
                                text-slate-400 dark:text-slate-500 hover:text-accent transition-colors flex-shrink-0">
