@@ -222,6 +222,8 @@ export default function App() {
                 onChange={navigate}
                 dark={dark}
                 onToggleTheme={() => setDark(d => !d)}
+                accent={accent}
+                onSetAccent={setAccent}
               />
             )}
             <div key={activePost || activePage} className="mt-3 page-enter">
