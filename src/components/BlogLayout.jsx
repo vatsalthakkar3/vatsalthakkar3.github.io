@@ -73,7 +73,7 @@ export const mdxComponents = {
     const label = lang && lang !== 'plaintext' && lang !== 'text' ? lang : null
     return (
       <div className="my-5 rounded-xl overflow-hidden border border-black/[0.08] dark:border-white/[0.08]
-                      bg-[#f9fafb] dark:bg-[#0d1117]">
+                      bg-white dark:bg-[#0d1117]">
         {label && (
           <div className="flex items-center justify-between px-4 py-2
                           bg-black/[0.04] dark:bg-white/[0.03]
@@ -215,7 +215,7 @@ export default function BlogLayout({ frontmatter, children }) {
         <p className="text-xs text-slate-400 dark:text-slate-600">Vatsal Thakkar · University of Georgia</p>
       </header>
 
-      <div className="flex gap-10 items-start">
+      <div className="flex gap-10">
         <article ref={articleRef} className="flex-1 min-w-0 text-sm text-slate-600 dark:text-slate-400 leading-[1.9]">
           {children}
         </article>
