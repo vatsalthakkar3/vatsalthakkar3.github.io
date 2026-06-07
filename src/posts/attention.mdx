@@ -81,7 +81,7 @@ Self-attention has no sense of order — it treats the input as a set, not a seq
 
 To fix this, positional encodings are added to the input embeddings before the first layer:
 
-```
+```bash
 PE(pos, 2i)   = sin(pos / 10000^(2i/d_model))
 PE(pos, 2i+1) = cos(pos / 10000^(2i/d_model))
 ```
@@ -126,3 +126,42 @@ The transformer became the foundation of essentially all modern AI:
 - **Stable Diffusion** — uses a transformer (CLIP) for text conditioning
 
 The key insight — replace inductive structure (recurrence, convolution) with learned attention over raw data — turned out to generalize far beyond language.
+
+## Running It Yourself
+
+Clone the annotated implementation and run training in one command:
+
+```bash
+git clone https://github.com/karpathy/nanoGPT
+cd nanoGPT
+
+# install dependencies
+pip install torch numpy transformers datasets tiktoken wandb tqdm
+
+# train a small GPT on Shakespeare (~3 min on a GPU)
+python train.py config/train_shakespeare_char.py
+```
+
+Generate text after training:
+
+```bash
+python sample.py \
+  --out_dir=out-shakespeare-char \
+  --num_samples=5 \
+  --max_new_tokens=200
+```
+
+## Architecture Diagram
+
+```mermaid
+flowchart TD
+    A[Input Tokens] --> B[Token + Position Embedding]
+    B --> C[Multi-Head Self-Attention]
+    C --> D[Add and Norm]
+    D --> E[Feed-Forward Network]
+    E --> F[Add and Norm]
+    F --> G[Cross-Attention]
+    G --> H[Add and Norm]
+    H --> I[Linear + Softmax]
+    I --> J[Output Token]
+```

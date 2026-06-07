@@ -5,11 +5,33 @@ import remarkFrontmatter from 'remark-frontmatter'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 import remarkGfm from 'remark-gfm'
 import rehypeShiki from '@shikijs/rehype'
+import { visit } from 'unist-util-visit'
+
+// Converts ```mermaid blocks to <Mermaid chart="..." /> before Shiki runs
+function remarkMermaid() {
+  return (tree) => {
+    visit(tree, 'code', (node, index, parent) => {
+      if (node.lang !== 'mermaid') return
+      parent.children.splice(index, 1, {
+        type: 'mdxJsxFlowElement',
+        name: 'Mermaid',
+        attributes: [{ type: 'mdxJsxAttribute', name: 'chart', value: node.value }],
+        children: [],
+      })
+    })
+  }
+}
 
 const shikiOptions = {
   themes: { light: 'github-light', dark: 'github-dark' },
-  langs: ['python', 'bash', 'shell', 'markdown', 'terraform', 'hcl', 'mermaid',
+  langs: ['python', 'bash', 'shell', 'markdown', 'terraform', 'hcl',
           'json', 'yaml', 'toml', 'javascript', 'typescript', 'jsx', 'tsx', 'css'],
+  transformers: [
+    {
+      name: 'add-data-language',
+      pre(node) { node.properties.dataLanguage = this.options.lang },
+    },
+  ],
 }
 
 export default defineConfig({
@@ -17,7 +39,7 @@ export default defineConfig({
     {
       enforce: 'pre',
       ...mdx({
-        remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter, remarkGfm],
+        remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter, remarkGfm, remarkMermaid],
         rehypePlugins: [[rehypeShiki, shikiOptions]],
       }),
     },

@@ -1,4 +1,5 @@
 import { FiCalendar, FiClock } from 'react-icons/fi'
+import Mermaid from './Mermaid'
 
 function Callout({ label, children }) {
   return (
@@ -32,28 +33,44 @@ export const mdxComponents = {
       <span>{children}</span>
     </li>
   ),
-  pre: ({ children, className, ...props }) => (
-    <div className="my-5 rounded-xl glass-inner overflow-hidden">
-      <pre
-        {...props}
-        className={[
-          'overflow-x-auto p-4 font-mono text-[12.5px] leading-relaxed',
-          className ?? '',
-        ].join(' ')}
-      >
-        {children}
-      </pre>
-    </div>
-  ),
-  code: ({ children, className }) =>
-    className ? (
-      <code className={className}>{children}</code>
-    ) : (
+  Mermaid,
+  pre: ({ children, className, 'data-language': lang, ...props }) => {
+    const label = lang && lang !== 'plaintext' && lang !== 'text' ? lang : null
+    return (
+      <div className="my-5 rounded-xl overflow-hidden border border-black/[0.08] dark:border-white/[0.08]">
+        {label && (
+          <div className="flex items-center justify-between px-4 py-2
+                          bg-black/[0.04] dark:bg-white/[0.04]
+                          border-b border-black/[0.06] dark:border-white/[0.06]">
+            <span className="text-[10px] font-mono font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide">
+              {label}
+            </span>
+          </div>
+        )}
+        <pre
+          {...props}
+          className={[
+            'overflow-x-auto p-4 font-mono text-[12.5px] leading-relaxed',
+            'bg-slate-50 dark:bg-[#0d1117]',
+            className ?? '',
+          ].join(' ')}
+        >
+          {children}
+        </pre>
+      </div>
+    )
+  },
+  code: ({ children, className }) => {
+    // Inside a Shiki pre, children are span elements — don't apply inline-code styling
+    if (typeof children !== 'string') return <code className={className}>{children}</code>
+    if (className) return <code className={className}>{children}</code>
+    return (
       <code className="font-mono text-[12.5px] text-accent bg-accent/[0.07] dark:bg-accent/[0.09]
                        px-1.5 py-0.5 rounded border border-accent/[0.16] dark:border-accent/[0.18]">
         {children}
       </code>
-    ),
+    )
+  },
   blockquote: ({ children }) => (
     <div className="my-4 p-4 rounded-xl glass-inner border-l-2 border-accent/40
                     text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed [&>p]:mb-0">
