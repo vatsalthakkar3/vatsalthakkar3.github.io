@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from 'react'
 import { FiCalendar, FiClock } from 'react-icons/fi'
 import Mermaid from './Mermaid'
 
@@ -7,6 +8,40 @@ function Callout({ label, children }) {
       {label && <p className="text-[10px] font-semibold text-accent uppercase tracking-wider mb-1.5">{label}</p>}
       <p className="text-[13px] text-slate-600 dark:text-slate-400 leading-relaxed">{children}</p>
     </div>
+  )
+}
+
+function TableOfContents({ headings, activeId }) {
+  if (!headings.length) return null
+  return (
+    <nav aria-label="On this page">
+      <p className="text-[10px] font-semibold uppercase tracking-widest
+                    text-slate-400 dark:text-slate-600 mb-3">
+        On this page
+      </p>
+      <ul className="space-y-1.5 border-l border-slate-200 dark:border-white/[0.07]">
+        {headings.map(h => (
+          <li key={h.id}>
+            <a
+              href={`#${h.id}`}
+              onClick={e => {
+                e.preventDefault()
+                document.getElementById(h.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }}
+              className={[
+                'block text-[11px] leading-snug py-0.5 pl-3 -ml-px transition-all duration-150 border-l',
+                h.level === 3 ? 'pl-5' : '',
+                activeId === h.id
+                  ? 'text-accent font-medium border-accent'
+                  : 'text-slate-400 dark:text-slate-600 hover:text-slate-700 dark:hover:text-slate-300 border-transparent',
+              ].join(' ')}
+            >
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
   )
 }
 
@@ -61,7 +96,6 @@ export const mdxComponents = {
     )
   },
   code: ({ children, className }) => {
-    // Inside a Shiki pre, children are span elements — don't apply inline-code styling
     if (typeof children !== 'string') return <code className={className}>{children}</code>
     if (className) return <code className={className}>{children}</code>
     return (
@@ -112,11 +146,40 @@ export const mdxComponents = {
     <td className="px-4 py-2 text-slate-600 dark:text-slate-400
                    border-b border-slate-100 dark:border-white/[0.04]">{children}</td>
   ),
-  // Custom components available without importing in MDX files
   Callout,
 }
 
 export default function BlogLayout({ frontmatter, children }) {
+  const [headings, setHeadings] = useState([])
+  const [activeId, setActiveId] = useState('')
+  const articleRef = useRef(null)
+
+  // Extract headings after render
+  useEffect(() => {
+    const els = [...(articleRef.current?.querySelectorAll('h2[id], h3[id]') ?? [])]
+    setHeadings(els.map(el => ({
+      id: el.id,
+      text: el.textContent,
+      level: el.tagName === 'H2' ? 2 : 3,
+    })))
+  }, [children])
+
+  // Highlight active heading on scroll
+  useEffect(() => {
+    if (!headings.length) return
+    const scrollEl = document.getElementById('main-scroll') ?? undefined
+    const observer = new IntersectionObserver(
+      entries => {
+        const visible = entries.find(e => e.isIntersecting)
+        if (visible) setActiveId(visible.target.id)
+      },
+      { root: scrollEl, rootMargin: '-8% 0% -80% 0%', threshold: 0 }
+    )
+    const els = articleRef.current?.querySelectorAll('h2[id], h3[id]') ?? []
+    els.forEach(el => observer.observe(el))
+    return () => observer.disconnect()
+  }, [headings])
+
   return (
     <div className="glass rounded-2xl p-5 lg:p-8">
       <header className="mb-8 pb-6 border-b border-slate-200 dark:border-white/[0.07]">
@@ -152,9 +215,19 @@ export default function BlogLayout({ frontmatter, children }) {
         <p className="text-xs text-slate-400 dark:text-slate-600">Vatsal Thakkar · University of Georgia</p>
       </header>
 
-      <article className="text-sm text-slate-600 dark:text-slate-400 leading-[1.9] min-w-0">
-        {children}
-      </article>
+      <div className="flex gap-10 items-start">
+        <article ref={articleRef} className="flex-1 min-w-0 text-sm text-slate-600 dark:text-slate-400 leading-[1.9]">
+          {children}
+        </article>
+
+        {headings.length > 0 && (
+          <aside className="hidden xl:block w-44 flex-shrink-0">
+            <div className="sticky top-4">
+              <TableOfContents headings={headings} activeId={activeId} />
+            </div>
+          </aside>
+        )}
+      </div>
     </div>
   )
 }

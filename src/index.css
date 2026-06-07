@@ -153,18 +153,20 @@
   .hover-lift, .btn-tactile { transition: none; }
 }
 
-/* ── Shiki syntax highlighting — dual theme via CSS variables ─────────────── */
-.shiki, .shiki span {
-  color: var(--shiki-light) !important;
+/* ── Shiki syntax highlighting ────────────────────────────────────────────── *
+   Shiki's default theme (light) applies colors directly to spans — no CSS var.
+   We only need to: clear its inline bg (our wrapper div provides the bg),
+   and in dark mode override every span with the --shiki-dark variable.        */
+.shiki { background-color: transparent !important; }
+
+.dark .shiki {
   background-color: transparent !important;
-  font-style: var(--shiki-light-font-style) !important;
-  font-weight: var(--shiki-light-font-weight) !important;
-  text-decoration: var(--shiki-light-text-decoration) !important;
+  color: var(--shiki-dark) !important;
 }
-.dark .shiki, .dark .shiki span {
+.dark .shiki span {
   color: var(--shiki-dark) !important;
   background-color: transparent !important;
-  font-style: var(--shiki-dark-font-style) !important;
-  font-weight: var(--shiki-dark-font-weight) !important;
-  text-decoration: var(--shiki-dark-text-decoration) !important;
+  font-style:      var(--shiki-dark-font-style)       !important;
+  font-weight:     var(--shiki-dark-font-weight)      !important;
+  text-decoration: var(--shiki-dark-text-decoration)  !important;
 }
