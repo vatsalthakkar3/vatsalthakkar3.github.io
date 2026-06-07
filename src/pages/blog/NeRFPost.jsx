@@ -180,7 +180,7 @@ export default function NeRFPost() {
           {/* ── The Problem ───────────────────────────────────────────────── */}
           <Section id="hook" title="The Problem: Seeing What You've Never Seen">
             <p>
-              Here is a deceptively simple question: you take 50 photographs of your coffee mug
+              Here is a simple question: you take 50 photographs of your coffee mug
               from different angles. Can a computer figure out what the mug looks like from an
               angle you <em>never</em> photographed?
             </p>
@@ -193,10 +193,10 @@ export default function NeRFPost() {
             </p>
 
             <p>
-              This is the problem of <strong className="font-semibold text-slate-800 dark:text-slate-200">novel view synthesis</strong>,
-              and it had been a hard open problem in computer vision for decades. In 2020, a team from
+              This is called <strong className="font-semibold text-slate-800 dark:text-slate-200">novel view synthesis</strong>,
+              and it had been a hard problem in computer vision for years. In 2020, a team from
               UC Berkeley and Google Research published NeRF — Neural Radiance Fields — and solved it
-              in a way nobody expected: with a tiny neural network and classical physics.
+              in a way nobody expected: with a small neural network and classical physics.
             </p>
 
             <Figure
@@ -224,10 +224,10 @@ export default function NeRFPost() {
             <p>
               The classic approach: a <strong className="font-semibold text-slate-800 dark:text-slate-200">voxel grid</strong>.
               Divide space into a 3D array of small cubes (voxels), each storing a color and
-              opacity. Simple, intuitive — and disastrously expensive. A 512×512×512 grid
+              opacity. Simple to understand — but very expensive in memory. A 512×512×512 grid
               needs over a billion cells. Storing it takes ~1 GB. And it still looks blocky
-              at that resolution. Scale to 1024³ and you're at 8 GB. The storage costs
-              scale as the <em>cube</em> of the resolution.
+              at that resolution. Scale to 1024³ and you're at 8 GB. Storage grows as the
+              <em>cube</em> of the resolution.
             </p>
 
             <div className="space-y-4 my-2">
@@ -270,9 +270,9 @@ export default function NeRFPost() {
             </div>
 
             <p>
-              All three methods share the same fundamental weakness: they discretize space.
-              Discretization is the enemy of both resolution and storage efficiency.
-              NeRF sidesteps the problem entirely by never discretizing at all.
+              All three methods have the same core problem: they break space into fixed boxes.
+              The finer the boxes, the more memory you need.
+              NeRF avoids this by never using a grid at all.
             </p>
           </Section>
 
@@ -424,15 +424,14 @@ export default function NeRFPost() {
 
             <p>
               When you feed raw coordinates like <InlineMath>(0.37, 0.82, 0.14)</InlineMath>{' '}
-              into a neural network with ReLU activations, the network is fundamentally biased
-              toward learning smooth, low-frequency functions. It can learn that the sky is
-              blue and the grass is green — but sharp edges, fine textures, and sudden color
-              transitions are hard. The network gravitates toward blurry approximations.
+              into a neural network with ReLU activations, the network tends to learn smooth,
+              blurry outputs. It can pick up broad color regions — like sky and grass — but
+              sharp edges and fine textures are hard to learn.
             </p>
 
             <p>
-              A naive NeRF without any fix produces results that look exactly like this:
-              blurry mush. Technically correct in broad strokes, but useless for fine detail.
+              A NeRF without this fix produces results that are correct in broad strokes,
+              but too blurry to be useful.
             </p>
 
             <Figure src="image31.gif" alt="With and without Fourier features"
@@ -450,12 +449,12 @@ export default function NeRFPost() {
             </MathBlock>
 
             <p>
-              Think of it like a piano keyboard. A single note gives you one frequency. The full
-              keyboard gives you every octave. By projecting a coordinate onto <InlineMath>2L</InlineMath>{' '}
+              Think of it like a piano. One key gives you one note. The full keyboard gives
+              you every octave. By mapping a coordinate onto <InlineMath>2L</InlineMath>{' '}
               different frequencies — <InlineMath>L = 10</InlineMath> for 3D position,
               <InlineMath>L = 4</InlineMath> for viewing direction — you give the network
-              everything it needs to reconstruct fine detail. The higher-frequency sinusoids
-              capture the sharp transitions; the lower ones handle broad color regions.
+              everything it needs to learn fine detail. The high-frequency terms capture sharp
+              edges; the low-frequency terms handle broad color regions.
             </p>
 
             <Figure src="image29.png" alt="Positional encoding formula" size="lg"
@@ -518,10 +517,9 @@ export default function NeRFPost() {
               caption="Uniform coarse samples (top) give a rough density map. Fine samples (bottom) concentrate where the geometry actually is — near peaks in the coarse density." />
 
             <p>
-              This is importance sampling applied to volume rendering. The coarse network does
-              the exploration; the fine network does the exploitation. Together they get
-              192 effective samples worth of quality with far less wasted compute than 192
-              uniform samples would provide.
+              The coarse network finds where the geometry is. The fine network then places
+              its samples there. Together they get the quality of 192 well-placed samples,
+              with far less wasted compute than 192 random ones.
             </p>
           </Section>
 
@@ -718,11 +716,10 @@ export default function NeRFPost() {
             </div>
 
             <Callout label="The bigger picture">
-              NeRF reframed a geometric problem (3D scene reconstruction) as an optimization
-              problem (fit a neural function to 2D pixel observations). That reframing — implicit
-              neural representations instead of explicit structures — turned out to be deeply
-              generative. Gaussian Splatting, 3D Diffusion Models, and Neural Scene Simulation
-              all trace their DNA back to this 2020 paper.
+              NeRF turned a hard 3D problem (scene reconstruction) into a simpler one: fit a
+              function to 2D pixel colors. The idea of storing a scene as a function instead
+              of a grid turned out to be very powerful. Gaussian Splatting, 3D Diffusion Models,
+              and Neural Scene Simulation all built on this idea.
             </Callout>
           </Section>
 

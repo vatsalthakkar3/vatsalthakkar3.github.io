@@ -155,9 +155,9 @@ export default function ActivationPost() {
             </p>
 
             <p>
-              This is not a theoretical edge case. It's the fundamental reason why activation
-              functions exist — and understanding <em>why</em> linearity collapses everything
-              is the key to understanding how neural networks actually gain their power.
+              This is the main reason why activation functions exist — and understanding
+              <em>why</em> linearity collapses everything is the key to understanding how
+              neural networks get their power.
             </p>
 
             <Callout label="The question we're answering">
@@ -225,9 +225,8 @@ a² = z²      (no transformation)`}</MathBlock>
 
             <p>
               Where <InlineMath>W' = W²W¹</InlineMath> and <InlineMath>b' = W²b¹ + b²</InlineMath>.
-              The two-layer network has collapsed into a single linear transformation{' '}
-              <InlineMath>W'x + b'</InlineMath>. It is, in every meaningful sense, a one-layer
-              network in disguise.
+              The two-layer network is now just a single linear equation{' '}
+              <InlineMath>W'x + b'</InlineMath>. It is really just a one-layer network.
             </p>
 
             <Callout label="The key insight">
@@ -288,16 +287,14 @@ a² = z²      (no transformation)`}</MathBlock>
                 </h3>
                 <p className="text-xs leading-relaxed">
                   A linear function in <InlineMath>n</InlineMath> dimensions is described
-                  entirely by <InlineMath>n + 1</InlineMath> numbers (a slope per dimension plus
-                  a bias). No matter how many parameters your "deep" linear network has, it
-                  reduces to those same <InlineMath>n + 1</InlineMath> effective degrees of freedom.
+                  by just <InlineMath>n + 1</InlineMath> numbers. No matter how many layers
+                  you stack without non-linearity, the whole thing collapses to those same numbers.
                 </p>
                 <p className="text-xs leading-relaxed mt-2">
-                  Non-linear networks are {' '}
-                  <strong className="font-semibold text-slate-800 dark:text-slate-200">universal function approximators</strong>:
-                  given enough neurons and non-linearities, they can approximate any continuous
-                  function to arbitrary precision. This is the Universal Approximation Theorem,
-                  and it requires non-linearity as a prerequisite.
+                  With enough neurons and non-linearities, a network can approximate{' '}
+                  <strong className="font-semibold text-slate-800 dark:text-slate-200">any function</strong>.
+                  This is called the Universal Approximation Theorem — and it only holds
+                  because of non-linearity.
                 </p>
               </div>
 
@@ -312,11 +309,10 @@ a² = z²      (no transformation)`}</MathBlock>
                   combine parts into objects (faces, cars).
                 </p>
                 <p className="text-xs leading-relaxed mt-2">
-                  This only works if each layer can build a genuinely different kind of
-                  representation from the previous layer. With linear functions, layer 2's
-                  output is just a re-weighted sum of layer 1's output — the same information,
-                  just shuffled. Non-linearity is what allows each layer to extract something
-                  qualitatively new from what came before.
+                  This only works if each layer can do something new with what it receives.
+                  With only linear layers, each layer's output is just a reshuffled version
+                  of the previous one — no new structure is learned. Non-linearity is what
+                  lets each layer learn something genuinely new.
                 </p>
               </div>
 
@@ -371,19 +367,17 @@ a² = z²      (no transformation)`}</MathBlock>
             </div>
 
             <p className="mt-4">
-              Notice what all of these have in common: they are non-linear, but they are
-              also <em>simple</em>. ReLU is just a threshold. Tanh is a smooth squash.
-              The complexity of a deep network doesn't come from complicated activation
-              functions — it comes from applying millions of simple non-linearities,
-              each one allowing the next layer to build on the last in a way pure
-              linear algebra never could.
+              All of these are non-linear, but they are also <em>simple</em>. ReLU is just
+              a threshold. Tanh is a smooth squash. The power of a deep network doesn't
+              come from complicated activation functions — it comes from applying millions
+              of simple non-linearities, one after another. Each small kink lets the next
+              layer build on the last in a way that pure linear math never could.
             </p>
 
             <Callout label="The intuition in one sentence">
-              A non-linear activation function is the hinge that lets one layer's output
-              mean something qualitatively different from the next layer's input —
-              and that difference, composed millions of times, is what gives neural
-              networks the power to learn anything.
+              A non-linear activation is the small kink between layers that lets each layer
+              learn something new from the previous one — and that difference, repeated
+              millions of times, is what gives neural networks their power.
             </Callout>
           </Section>
 
