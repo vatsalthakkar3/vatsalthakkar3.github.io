@@ -12,33 +12,9 @@ import ActivationPost from './pages/blog/ActivationPost'
 import BlogLayout, { mdxComponents } from './components/BlogLayout'
 import ScrollToTop from './components/ScrollToTop'
 import Toast from './components/Toast'
+import AccentSwatch from './components/AccentSwatch'
 
 const PAGES = { about: About, resume: Resume, portfolio: Portfolio, writings: Writings, contact: Contact }
-
-function AccentSwatch({ accent, onSetAccent }) {
-  return (
-    <div className="flex items-center gap-1 px-1">
-      <button
-        onClick={() => onSetAccent('blue')}
-        aria-label="Blue accent"
-        title="Blue"
-        className={[
-          'w-3 h-3 rounded-full bg-[#2563eb] transition-all duration-150',
-          accent === 'blue' ? 'ring-2 ring-offset-1 ring-[#2563eb] dark:ring-offset-[#090e1c]' : 'opacity-40 hover:opacity-70',
-        ].join(' ')}
-      />
-      <button
-        onClick={() => onSetAccent('amber')}
-        aria-label="Amber accent"
-        title="Amber"
-        className={[
-          'w-3 h-3 rounded-full bg-[#d97706] transition-all duration-150',
-          accent === 'amber' ? 'ring-2 ring-offset-1 ring-[#d97706] dark:ring-offset-[#090e1c]' : 'opacity-40 hover:opacity-70',
-        ].join(' ')}
-      />
-    </div>
-  )
-}
 
 function parseHash() {
   const raw = window.location.hash.replace(/^#\/?/, '')
