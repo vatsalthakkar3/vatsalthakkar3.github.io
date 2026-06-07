@@ -37,22 +37,16 @@ const POSTS = {
 }
 
 const DARK_BG = {
-  backgroundColor: '#080c18',
-  backgroundImage: [
-    'radial-gradient(ellipse 70% 55% at 5%  8%,  rgba(37,  99, 235, 0.11) 0%, transparent 55%)',
-    'radial-gradient(ellipse 55% 45% at 95% 90%, rgba(14, 165, 233, 0.08) 0%, transparent 50%)',
-    'radial-gradient(ellipse 35% 30% at 70% 40%, rgba(99, 102, 241, 0.05) 0%, transparent 45%)',
-  ].join(', '),
+  backgroundColor: '#0a0a0e',
+  backgroundImage:
+    'radial-gradient(ellipse 65% 45% at 8% 6%, rgba(37, 99, 235, 0.045) 0%, transparent 60%)',
   backgroundAttachment: 'fixed',
 }
 
 const DARK_BG_AMBER = {
-  backgroundColor: '#0f0a03',
-  backgroundImage: [
-    'radial-gradient(ellipse 70% 55% at 5%  8%,  rgba(180,  83,  9, 0.14) 0%, transparent 55%)',
-    'radial-gradient(ellipse 55% 45% at 95% 90%, rgba(217, 119,  6, 0.09) 0%, transparent 50%)',
-    'radial-gradient(ellipse 35% 30% at 70% 40%, rgba(245, 158, 11, 0.05) 0%, transparent 45%)',
-  ].join(', '),
+  backgroundColor: '#0b0a08',
+  backgroundImage:
+    'radial-gradient(ellipse 65% 45% at 8% 6%, rgba(180, 83, 9, 0.05) 0%, transparent 60%)',
   backgroundAttachment: 'fixed',
 }
 
