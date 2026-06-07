@@ -16,8 +16,8 @@ export default function AccentSwatch({ accent, onSetAccent }) {
             onClick={() => onSetAccent(key)}
             title={label}
             className={[
-              'flex items-center gap-1.5 pl-1.5 pr-2.5 h-6 rounded-full',
-              'transition-all duration-200',
+              'flex items-center h-6 rounded-full transition-all duration-200',
+              'pl-1.5 pr-1.5 gap-0 lg:gap-1.5 lg:pr-2.5',
               active
                 ? 'bg-white dark:bg-white/[0.12] shadow-sm'
                 : 'opacity-40 hover:opacity-65',
@@ -28,7 +28,7 @@ export default function AccentSwatch({ accent, onSetAccent }) {
               style={{ backgroundColor: color, transform: active ? 'scale(1.2)' : 'scale(1)' }}
             />
             <span
-              className="text-[10px] font-semibold tracking-wide leading-none"
+              className="hidden lg:block text-[10px] font-semibold tracking-wide leading-none"
               style={{ color: active ? color : undefined }}
             >
               {label}
