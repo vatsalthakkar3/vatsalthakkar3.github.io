@@ -58,7 +58,7 @@ print(x.shape)
 `,i.jsx(t.li,{children:"Point one"}),`
 `,i.jsx(t.li,{children:"Point two"}),`
 `,i.jsx(t.li,{children:"Point three"}),`
-`]})]})}function Md(e={}){const{wrapper:t}=e.components||{};return t?i.jsx(t,{...e,children:i.jsx(po,{...e})}):po(e)}function Rd(e,t){throw new Error("Expected component `"+e+"` to be defined: you likely forgot to import, pass, or provide it.")}const $u=Object.freeze(Object.defineProperty({__proto__:null,default:Md,frontmatter:_d},Symbol.toStringTag,{value:"Module"})),Id={title:"Attention Is All You Need — Explained",date:"Dec 5, 2022",category:"Deep Learning",slug:"attention",image:"/images/Attention.png",desc:"Multi-head self-attention, positional encodings, and why the transformer replaced RNNs for sequence modelling.",readTime:"~10 min read"};function mo(e){const t={code:"code",em:"em",h2:"h2",li:"li",ol:"ol",p:"p",pre:"pre",strong:"strong",ul:"ul",...e.components},{Callout:n}=t;return n||Fd("Callout"),i.jsxs(i.Fragment,{children:[i.jsx(t.h2,{children:"The Problem with RNNs"}),`
+`]})]})}function Md(e={}){const{wrapper:t}=e.components||{};return t?i.jsx(t,{...e,children:i.jsx(po,{...e})}):po(e)}function Rd(e,t){throw new Error("Expected component `"+e+"` to be defined: you likely forgot to import, pass, or provide it.")}const $u=Object.freeze(Object.defineProperty({__proto__:null,default:Md,frontmatter:_d},Symbol.toStringTag,{value:"Module"})),Id={title:"Attention Is All You Need — Explained",date:"Dec 5, 2022",category:"Deep Learning",slug:"attention",image:"/images/Attention.png",desc:"Multi-head self-attention, positional encodings, and why the transformer replaced RNNs for sequence modelling.",readTime:"~10 min read"};function mo(e){const t={code:"code",em:"em",h2:"h2",li:"li",ol:"ol",p:"p",pre:"pre",strong:"strong",table:"table",tbody:"tbody",td:"td",th:"th",thead:"thead",tr:"tr",ul:"ul",...e.components},{Callout:n}=t;return n||Fd("Callout"),i.jsxs(i.Fragment,{children:[i.jsx(t.h2,{children:"The Problem with RNNs"}),`
 `,i.jsx(t.p,{children:"Before transformers, sequence models like RNNs and LSTMs were the standard for language tasks. They read a sentence one word at a time — left to right — and carry a hidden state that summarizes everything seen so far."}),`
 `,i.jsx(t.p,{children:"This works, but it has two big problems:"}),`
 `,i.jsxs(t.ul,{children:[`
@@ -112,12 +112,7 @@ PE(pos, 2i+1) = cos(pos / 10000^(2i/d_model))
 `]}),`
 `,i.jsxs(t.p,{children:["Both encoder and decoder use ",i.jsx(t.strong,{children:"residual connections"})," and ",i.jsx(t.strong,{children:"layer normalization"})," around every sub-layer, which stabilizes training in deep stacks."]}),`
 `,i.jsx(t.h2,{children:"Why It Worked"}),`
-`,i.jsx(t.p,{children:`| Property | RNN | Transformer |
-| --- | --- | --- |
-| Parallelizable | No | Yes |
-| Long-range dependencies | Weak | Strong |
-| Training speed | Slow | Fast |
-| Memory | O(1) | O(n²) |`}),`
+`,i.jsxs(t.table,{children:[i.jsx(t.thead,{children:i.jsxs(t.tr,{children:[i.jsx(t.th,{children:"Property"}),i.jsx(t.th,{children:"RNN"}),i.jsx(t.th,{children:"Transformer"})]})}),i.jsxs(t.tbody,{children:[i.jsxs(t.tr,{children:[i.jsx(t.td,{children:"Parallelizable"}),i.jsx(t.td,{children:"No"}),i.jsx(t.td,{children:"Yes"})]}),i.jsxs(t.tr,{children:[i.jsx(t.td,{children:"Long-range dependencies"}),i.jsx(t.td,{children:"Weak"}),i.jsx(t.td,{children:"Strong"})]}),i.jsxs(t.tr,{children:[i.jsx(t.td,{children:"Training speed"}),i.jsx(t.td,{children:"Slow"}),i.jsx(t.td,{children:"Fast"})]}),i.jsxs(t.tr,{children:[i.jsx(t.td,{children:"Memory"}),i.jsx(t.td,{children:"O(1)"}),i.jsx(t.td,{children:"O(n²)"})]})]})]}),`
 `,i.jsx(t.p,{children:"The O(n²) memory cost of attention (every pair of positions) is the main trade-off. For long sequences this gets expensive — which is why later work like Longformer and FlashAttention focus on making attention more efficient."}),`
 `,i.jsx(t.h2,{children:"What Came After"}),`
 `,i.jsx(t.p,{children:"The transformer became the foundation of essentially all modern AI:"}),`
