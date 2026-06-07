@@ -36,8 +36,6 @@ const POSTS = {
   ..._mdxPosts,
 }
 
-/* Dark background: cool blue-black — precise and technical.
-   Subtle indigo/blue blobs give the sidebar glass depth without the neon AI-glow look. */
 const DARK_BG = {
   backgroundColor: '#080c18',
   backgroundImage: [
@@ -48,8 +46,18 @@ const DARK_BG = {
   backgroundAttachment: 'fixed',
 }
 
-/* Light background: cool near-white */
-const LIGHT_BG = { backgroundColor: '#f6f8fc' }
+const DARK_BG_AMBER = {
+  backgroundColor: '#0f0a03',
+  backgroundImage: [
+    'radial-gradient(ellipse 70% 55% at 5%  8%,  rgba(180,  83,  9, 0.14) 0%, transparent 55%)',
+    'radial-gradient(ellipse 55% 45% at 95% 90%, rgba(217, 119,  6, 0.09) 0%, transparent 50%)',
+    'radial-gradient(ellipse 35% 30% at 70% 40%, rgba(245, 158, 11, 0.05) 0%, transparent 45%)',
+  ].join(', '),
+  backgroundAttachment: 'fixed',
+}
+
+const LIGHT_BG       = { backgroundColor: '#f6f8fc' }
+const LIGHT_BG_AMBER = { backgroundColor: '#fffbf0' }
 
 export default function App() {
   const [activePage, setActivePage] = useState(() => parseHash().page)
@@ -123,7 +131,9 @@ export default function App() {
     <>
       <div
         className="min-h-screen font-sans text-slate-900 dark:text-slate-100 transition-colors duration-300"
-        style={dark ? DARK_BG : LIGHT_BG}
+        style={dark
+          ? (accent === 'amber' ? DARK_BG_AMBER : DARK_BG)
+          : (accent === 'amber' ? LIGHT_BG_AMBER : LIGHT_BG)}
       >
         {/* ── Desktop ──────────────────────────────────────────────────────── */}
         <div className="hidden lg:flex h-screen overflow-hidden max-w-[1260px] mx-auto">

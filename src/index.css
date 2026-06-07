@@ -13,7 +13,7 @@
   --ease-inout: cubic-bezier(0.77, 0, 0.175, 1);
 }
 .dark          { --accent: 96 165 250; }   /* blue-400  */
-.amber         { --accent: 217 119 6; }    /* amber-600 */
+.amber         { --accent: 180 83 9; }     /* amber-700 — stronger contrast on light bg */
 .dark.amber    { --accent: 251 191 36; }   /* amber-400 */
 
 @layer base {
