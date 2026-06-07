@@ -11,6 +11,119 @@ function Callout({ label, children }) {
   )
 }
 
+function Figure({ src, alt, caption, size, wide = false }) {
+  const sizeClass = {
+    sm: 'max-w-xs mx-auto', md: 'max-w-sm mx-auto',
+    lg: 'max-w-lg mx-auto', xl: 'max-w-xl mx-auto', full: '',
+  }[size ?? 'full']
+  return (
+    <figure className={['my-6', wide ? '-mx-2 sm:mx-0' : '', sizeClass].filter(Boolean).join(' ')}>
+      <div className="rounded-xl overflow-hidden glass-inner bg-slate-50 dark:bg-white/[0.02]">
+        <img src={src} alt={alt} loading="lazy" className="w-full h-auto block" />
+      </div>
+      {caption && (
+        <figcaption className="mt-2 text-center text-[11px] text-slate-400 dark:text-slate-600 italic leading-snug px-2">
+          {caption}
+        </figcaption>
+      )}
+    </figure>
+  )
+}
+
+function TwoUp({ left, right }) {
+  return (
+    <div className="grid sm:grid-cols-2 gap-3 my-6">
+      <Figure {...left} />
+      <Figure {...right} />
+    </div>
+  )
+}
+
+function InlineMath({ children }) {
+  return (
+    <code className="font-mono text-[12.5px] text-accent bg-accent/[0.07] dark:bg-accent/[0.09]
+                     px-1.5 py-0.5 rounded border border-accent/[0.16] dark:border-accent/[0.18]">
+      {children}
+    </code>
+  )
+}
+
+function MathBlock({ children }) {
+  return (
+    <div className="my-5 overflow-x-auto flex justify-center">
+      <div className="font-mono text-[13px] text-accent bg-accent/[0.07] dark:bg-accent/[0.09]
+                      border border-accent/[0.18] dark:border-accent/[0.20]
+                      px-5 py-4 rounded-xl whitespace-pre flex-shrink-0 leading-7">
+        {children}
+      </div>
+    </div>
+  )
+}
+
+function StepCard({ n, title, children }) {
+  return (
+    <div className="flex gap-3 items-start glass-inner rounded-xl p-4">
+      <span className="w-6 h-6 rounded-full bg-accent/[0.09] border border-accent/[0.18]
+                       flex items-center justify-center flex-shrink-0 mt-0.5
+                       text-[10px] font-bold text-accent">{n}</span>
+      <div>
+        <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 mb-0.5">{title}</p>
+        <p className="text-xs leading-relaxed">{children}</p>
+      </div>
+    </div>
+  )
+}
+
+function InfoCard({ title, children }) {
+  return (
+    <div className="glass-inner rounded-xl p-4">
+      {title && <h4 className="text-xs font-semibold text-slate-800 dark:text-slate-200 mb-2">{title}</h4>}
+      <div className="text-xs leading-relaxed space-y-2">{children}</div>
+    </div>
+  )
+}
+
+function BulletCard({ title, children, danger = false }) {
+  return (
+    <div className="flex gap-2.5 p-3.5 rounded-xl glass-inner items-start">
+      <span className={`mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0 ${danger ? 'bg-rose-400' : 'bg-accent'}`} />
+      <div>
+        {title && <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 mb-0.5">{title}</p>}
+        <p className="text-xs leading-relaxed">{children}</p>
+      </div>
+    </div>
+  )
+}
+
+function FormulaCard({ name, formula, children }) {
+  return (
+    <div className="glass-inner rounded-xl p-4">
+      <div className="flex items-start gap-3 mb-2">
+        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+        <div className="min-w-0">
+          <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">{name}</p>
+          <code className="text-[11px] font-mono text-accent/80">{formula}</code>
+        </div>
+      </div>
+      <p className="text-xs leading-relaxed pl-4">{children}</p>
+    </div>
+  )
+}
+
+function CodeProof({ title, code, children }) {
+  return (
+    <div className="glass-inner rounded-xl p-5 my-4">
+      {title && <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 mb-3">{title}</p>}
+      <div className="overflow-x-auto">
+        <div className="font-mono text-[12px] text-accent whitespace-pre leading-7 flex-shrink-0 inline-block">
+          {code}
+        </div>
+      </div>
+      {children && <p className="text-xs text-slate-500 dark:text-slate-400 mt-3 leading-relaxed">{children}</p>}
+    </div>
+  )
+}
+
 function TableOfContents({ headings, activeId }) {
   if (!headings.length) return null
   return (
@@ -147,6 +260,15 @@ export const mdxComponents = {
                    border-b border-slate-100 dark:border-white/[0.04]">{children}</td>
   ),
   Callout,
+  Figure,
+  TwoUp,
+  InlineMath,
+  MathBlock,
+  StepCard,
+  InfoCard,
+  BulletCard,
+  FormulaCard,
+  CodeProof,
 }
 
 export default function BlogLayout({ frontmatter, children }) {

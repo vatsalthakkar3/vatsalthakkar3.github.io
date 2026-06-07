@@ -7,8 +7,6 @@ import Resume from './pages/Resume'
 import Portfolio from './pages/Portfolio'
 import Writings from './pages/Writings'
 import Contact from './pages/Contact'
-import NeRFPost from './pages/blog/NeRFPost'
-import ActivationPost from './pages/blog/ActivationPost'
 import BlogLayout, { mdxComponents } from './components/BlogLayout'
 import ScrollToTop from './components/ScrollToTop'
 import Toast from './components/Toast'
@@ -30,11 +28,7 @@ const _mdxPosts = Object.fromEntries(
     .map(m => [m.frontmatter.slug, { Component: m.default, title: m.frontmatter.title, meta: m.frontmatter, mdx: true }])
 )
 
-const POSTS = {
-  nerf:       { Component: NeRFPost,       title: 'NeRF: Representing Scenes as Neural Radiance Fields' },
-  activation: { Component: ActivationPost, title: 'Why Do We Need Non-Linear Activation Functions?' },
-  ..._mdxPosts,
-}
+const POSTS = _mdxPosts
 
 const DARK_BG = {
   backgroundColor: '#0a0a0e',
