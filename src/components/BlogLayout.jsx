@@ -37,11 +37,12 @@ export const mdxComponents = {
   pre: ({ children, className, 'data-language': lang, ...props }) => {
     const label = lang && lang !== 'plaintext' && lang !== 'text' ? lang : null
     return (
-      <div className="my-5 rounded-xl overflow-hidden border border-black/[0.08] dark:border-white/[0.08]">
+      <div className="my-5 rounded-xl overflow-hidden border border-black/[0.08] dark:border-white/[0.08]
+                      bg-[#f9fafb] dark:bg-[#0d1117]">
         {label && (
           <div className="flex items-center justify-between px-4 py-2
-                          bg-black/[0.04] dark:bg-white/[0.04]
-                          border-b border-black/[0.06] dark:border-white/[0.06]">
+                          bg-black/[0.04] dark:bg-white/[0.03]
+                          border-b border-black/[0.06] dark:border-white/[0.05]">
             <span className="text-[10px] font-mono font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wide">
               {label}
             </span>
@@ -51,7 +52,6 @@ export const mdxComponents = {
           {...props}
           className={[
             'overflow-x-auto p-4 font-mono text-[12.5px] leading-relaxed',
-            'bg-slate-50 dark:bg-[#0d1117]',
             className ?? '',
           ].join(' ')}
         >
