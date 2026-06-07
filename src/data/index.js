@@ -305,6 +305,11 @@ export const projects = [
   },
 ]
 
+const _mdx = import.meta.glob('../posts/*.mdx', { eager: true })
+const _mdxBlogPosts = Object.values(_mdx)
+  .filter(m => m.frontmatter?.slug)
+  .map((m, i) => ({ id: 100 + i, ...m.frontmatter }))
+
 export const blogPosts = [
   {
     id: 1,
@@ -342,6 +347,7 @@ export const blogPosts = [
     desc: 'The DDPM forward/reverse process, CLIP text conditioning, and the role of the VAE encoder/decoder in latent diffusion.',
     href: '#',
   },
+  ..._mdxBlogPosts,
 ]
 
 export const research = [

@@ -9,6 +9,7 @@ import Writings from './pages/Writings'
 import Contact from './pages/Contact'
 import NeRFPost from './pages/blog/NeRFPost'
 import ActivationPost from './pages/blog/ActivationPost'
+import BlogLayout, { mdxComponents } from './components/BlogLayout'
 import ScrollToTop from './components/ScrollToTop'
 import Toast from './components/Toast'
 
@@ -20,9 +21,18 @@ function parseHash() {
   return { page: Object.keys(PAGES).includes(raw) ? raw : 'about', post: null }
 }
 
+// Auto-discover MDX posts from src/posts/ — files starting with _ are skipped (no slug)
+const _mdxModules = import.meta.glob('./posts/*.mdx', { eager: true })
+const _mdxPosts = Object.fromEntries(
+  Object.values(_mdxModules)
+    .filter(m => m.frontmatter?.slug)
+    .map(m => [m.frontmatter.slug, { Component: m.default, title: m.frontmatter.title, meta: m.frontmatter, mdx: true }])
+)
+
 const POSTS = {
   nerf:       { Component: NeRFPost,       title: 'NeRF: Representing Scenes as Neural Radiance Fields' },
   activation: { Component: ActivationPost, title: 'Why Do We Need Non-Linear Activation Functions?' },
+  ..._mdxPosts,
 }
 
 /* Dark background: cool blue-black — precise and technical.
@@ -157,7 +167,9 @@ export default function App() {
             <div id="main-scroll" className="flex-1 overflow-y-auto mt-4 flex flex-col">
               <div key={activePost || activePage} className="page-enter flex-1">
                 {Post
-                  ? <Post onBack={closePost} />
+                  ? postEntry.mdx
+                    ? <BlogLayout frontmatter={postEntry.meta}><Post components={mdxComponents} /></BlogLayout>
+                    : <Post onBack={closePost} />
                   : <Page showToast={showToast} openPost={openPost} />
                 }
               </div>
@@ -205,7 +217,9 @@ export default function App() {
             )}
             <div key={activePost || activePage} className="mt-3 page-enter">
               {Post
-                ? <Post onBack={closePost} />
+                ? postEntry.mdx
+                  ? <BlogLayout frontmatter={postEntry.meta}><Post components={mdxComponents} /></BlogLayout>
+                  : <Post onBack={closePost} />
                 : <Page showToast={showToast} openPost={openPost} />
               }
             </div>
