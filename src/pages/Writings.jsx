@@ -57,14 +57,14 @@ export default function Writings({ openPost }) {
               </div>
               <div className="p-5">
                 <div className="flex items-center gap-2.5 flex-wrap mb-2.5">
-                  {post.category && (
-                    <span className="text-[10px] font-semibold text-accent
+                  {(Array.isArray(post.tags) ? post.tags : post.category ? [post.category] : []).map(tag => (
+                    <span key={tag} className="text-[10px] font-semibold text-accent
                                      bg-accent/[0.09] dark:bg-accent/[0.12]
                                      border border-accent/[0.18] dark:border-accent/[0.20]
                                      px-2.5 py-0.5 rounded-full">
-                      {post.category}
+                      {tag}
                     </span>
-                  )}
+                  ))}
                   <span className="flex items-center gap-1 text-[10px] text-slate-400 dark:text-slate-500">
                     <FiCalendar size={9} /> {post.date}
                   </span>

@@ -463,12 +463,12 @@ export default function BlogLayout({ frontmatter, children, showToast }) {
       {/* Post header */}
       <header className="mb-8 pb-7 border-b border-slate-200 dark:border-white/[0.07]">
         <div className="flex flex-wrap items-center gap-2.5 mb-4">
-          {frontmatter.category && (
-            <span className="text-[10px] font-semibold text-accent bg-accent/[0.09] dark:bg-accent/[0.12]
+          {(Array.isArray(frontmatter.tags) ? frontmatter.tags : frontmatter.category ? [frontmatter.category] : []).map(tag => (
+            <span key={tag} className="text-[10px] font-semibold text-accent bg-accent/[0.09] dark:bg-accent/[0.12]
                              border border-accent/[0.18] dark:border-accent/[0.20] px-2.5 py-0.5 rounded-full">
-              {frontmatter.category}
+              {tag}
             </span>
-          )}
+          ))}
           {frontmatter.date && (
             <span className="text-[11px] text-slate-400 dark:text-slate-500 flex items-center gap-1">
               <FiCalendar size={10} /> {frontmatter.date}
