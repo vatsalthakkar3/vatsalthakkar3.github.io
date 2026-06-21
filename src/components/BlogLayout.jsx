@@ -163,7 +163,6 @@ function LikeButton({ slug }) {
         size={13}
         className={`transition-all duration-150 ${liked ? 'fill-rose-500 dark:fill-rose-400 stroke-rose-500 dark:stroke-rose-400' : ''}`}
       />
-      <span className="tabular-nums">{liked ? 1 : 0}</span>
       {liked ? 'Liked' : 'Like'}
     </button>
   )
