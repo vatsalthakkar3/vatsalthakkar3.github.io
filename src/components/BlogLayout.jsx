@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import katex from 'katex'
 import { FiCalendar, FiClock, FiTwitter, FiLinkedin, FiLink, FiHeart } from 'react-icons/fi'
 import { SiYcombinator, SiReddit } from 'react-icons/si'
 import Mermaid from './Mermaid'
@@ -106,13 +107,15 @@ function BulletCard({ title, children, danger = false }) {
 }
 
 function FormulaCard({ name, formula, children }) {
+  const html = katex.renderToString(formula, { throwOnError: false, displayMode: true })
   return (
     <div className="glass-inner rounded-xl p-4">
       <div className="flex items-start gap-3 mb-2">
         <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
-        <div className="min-w-0">
-          <p className="text-[13.5px] font-semibold text-slate-800 dark:text-slate-200">{name}</p>
-          <code className="text-[12px] font-mono text-accent/80">{formula}</code>
+        <div className="min-w-0 flex-1">
+          <p className="text-[13.5px] font-semibold text-slate-800 dark:text-slate-200 mb-1">{name}</p>
+          <span className="text-[13px] text-accent/90 [&_.katex]:text-accent/90 overflow-x-auto block"
+                dangerouslySetInnerHTML={{ __html: html }} />
         </div>
       </div>
       <p className="text-[13.5px] leading-relaxed pl-4 text-slate-600 dark:text-slate-400">{children}</p>

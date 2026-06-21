@@ -4,8 +4,10 @@ import mdx from '@mdx-js/rollup'
 import remarkFrontmatter from 'remark-frontmatter'
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
 import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
 import rehypeShiki from '@shikijs/rehype'
 import rehypeSlug from 'rehype-slug'
+import rehypeKatex from 'rehype-katex'
 import { visit } from 'unist-util-visit'
 
 // Converts ```mermaid blocks to <Mermaid chart="..." /> before Shiki runs
@@ -40,8 +42,8 @@ export default defineConfig({
     {
       enforce: 'pre',
       ...mdx({
-        remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter, remarkGfm, remarkMermaid],
-        rehypePlugins: [rehypeSlug, [rehypeShiki, shikiOptions]],
+        remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter, remarkGfm, remarkMath, remarkMermaid],
+        rehypePlugins: [rehypeSlug, rehypeKatex, [rehypeShiki, shikiOptions]],
       }),
     },
     react(),

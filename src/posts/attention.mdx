@@ -37,9 +37,9 @@ For each word, we compute three vectors:
 
 The attention score between two words is computed as:
 
-```
-Attention(Q, K, V) = softmax(QKᵀ / √d_k) · V
-```
+$$
+\text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{Q K^\top}{\sqrt{d_k}}\right) V
+$$
 
 Here is a minimal Python implementation:
 
@@ -69,11 +69,11 @@ Each head can specialize:
 
 The outputs of all heads are concatenated and projected back to the model dimension:
 
-```
-MultiHead(Q, K, V) = Concat(head₁, ..., headₕ) · Wᴼ
-```
+$$
+\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \ldots, \text{head}_h)\, W^O
+$$
 
-In the original paper, `h = 8` heads and `d_k = 64`.
+In the original paper, $h = 8$ heads and $d_k = 64$.
 
 ## Positional Encoding
 
@@ -81,10 +81,12 @@ Self-attention has no sense of order — it treats the input as a set, not a seq
 
 To fix this, positional encodings are added to the input embeddings before the first layer:
 
-```bash
-PE(pos, 2i)   = sin(pos / 10000^(2i/d_model))
-PE(pos, 2i+1) = cos(pos / 10000^(2i/d_model))
-```
+$$
+\begin{aligned}
+PE_{(pos,\, 2i)}   &= \sin\!\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right) \\[6pt]
+PE_{(pos,\, 2i+1)} &= \cos\!\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)
+\end{aligned}
+$$
 
 These sinusoidal functions give each position a unique fingerprint. The model learns to use them when word order matters.
 

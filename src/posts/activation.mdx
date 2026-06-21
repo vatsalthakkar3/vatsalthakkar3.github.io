@@ -24,52 +24,63 @@ We need a non-linear activation function — ReLU, tanh, sigmoid, GELU — to co
 
 ## The Math: A Two-Layer Network
 
-Start simple. Consider a two-layer neural network taking three inputs <InlineMath>x₁, x₂, x₃</InlineMath>, passing them through a hidden layer, and producing a prediction <InlineMath>ŷ</InlineMath>.
+Start simple. Consider a two-layer neural network taking three inputs $x_1, x_2, x_3$, passing them through a hidden layer, and producing a prediction $\hat{y}$.
 
-<Figure src="/blog/activation/network.png" alt="Two-layer neural network diagram" size="lg" caption="A two-layer network: inputs x₁, x₂, x₃ → hidden layer-1 → output layer-2 → prediction ŷ." />
+<Figure src="/blog/activation/network.png" alt="Two-layer neural network diagram" size="lg" caption="A two-layer network: inputs x₁, x₂, x₃ → hidden layer → output layer → prediction ŷ." />
 
-With an activation function <InlineMath>g(z)</InlineMath>, each layer computes:
+With an activation function $g(z)$, each layer computes:
 
-<MathBlock>{`Layer 1:   z¹ = W¹ · x + b¹
-           a¹ = g(z¹)
-
-Layer 2:   z² = W² · a¹ + b²
-           a² = g(z²)`}</MathBlock>
+$$
+\begin{aligned}
+\text{Layer 1:} \quad z^{(1)} &= W^{(1)} x + b^{(1)} \\
+a^{(1)} &= g\!\left(z^{(1)}\right) \\[8pt]
+\text{Layer 2:} \quad z^{(2)} &= W^{(2)} a^{(1)} + b^{(2)} \\
+a^{(2)} &= g\!\left(z^{(2)}\right)
+\end{aligned}
+$$
 
 Where:
 
-- <InlineMath>W¹, b¹</InlineMath> are the weight matrix and bias of layer 1
-- <InlineMath>W², b²</InlineMath> are the weight matrix and bias of layer 2
-- <InlineMath>g(z)</InlineMath> is the activation function — ReLU, tanh, sigmoid, or anything non-linear
+- $W^{(1)}, b^{(1)}$ are the weight matrix and bias of layer 1
+- $W^{(2)}, b^{(2)}$ are the weight matrix and bias of layer 2
+- $g(z)$ is the activation function — ReLU, tanh, sigmoid, or anything non-linear
 
-The activation <InlineMath>g(z)</InlineMath> is the non-linear "kink" between the two linear transformations. It's what allows the network to bend its decision boundary into shapes that lines can't make.
+The activation $g(z)$ is the non-linear "kink" between the two linear transformations. It's what allows the network to bend its decision boundary into shapes that lines can't make.
 
 ## The Collapse: What Happens Without Non-Linearity
 
-Now remove <InlineMath>g(z)</InlineMath>. Or equivalently, replace it with the identity function: <InlineMath>g(z) = z</InlineMath>. Your activations become:
+Now remove $g(z)$. Or equivalently, replace it with the identity function $g(z) = z$. Your activations become:
 
-<MathBlock>{`a¹ = z¹      (no transformation)
-a² = z²      (no transformation)`}</MathBlock>
+$$
+\begin{aligned}
+a^{(1)} &= z^{(1)} \quad \text{(no transformation)} \\
+a^{(2)} &= z^{(2)} \quad \text{(no transformation)}
+\end{aligned}
+$$
 
 Substitute into layer 2 and expand:
 
-<MathBlock>{`z² = W² · a¹ + b²
-   = W² · z¹ + b²
-   = W² · (W¹ · x + b¹) + b²
-   = W²W¹ · x + W²b¹ + b²
-   = W' · x + b'`}</MathBlock>
+$$
+\begin{aligned}
+z^{(2)} &= W^{(2)} a^{(1)} + b^{(2)} \\
+        &= W^{(2)} z^{(1)} + b^{(2)} \\
+        &= W^{(2)}\!\left(W^{(1)} x + b^{(1)}\right) + b^{(2)} \\
+        &= W^{(2)} W^{(1)} x + W^{(2)} b^{(1)} + b^{(2)} \\
+        &= W' x + b'
+\end{aligned}
+$$
 
-Where <InlineMath>W' = W²W¹</InlineMath> and <InlineMath>b' = W²b¹ + b²</InlineMath>. The two-layer network is now just a single linear equation <InlineMath>W'x + b'</InlineMath>. It is really just a one-layer network.
+Where $W' = W^{(2)} W^{(1)}$ and $b' = W^{(2)} b^{(1)} + b^{(2)}$. The two-layer network is now just a single linear equation $W'x + b'$ — really just a one-layer network.
 
 <Callout label="The key insight">
-This isn't specific to two layers. A 100-layer network with no activation functions is still just W'x + b' — one giant matrix multiplication, because the product of any number of linear transformations is itself a linear transformation. You can stack as many layers as you want; without non-linearity, you get nothing more complex than a line.
+This isn't specific to two layers. A 100-layer network with no activation functions is still just $W'x + b'$ — one giant matrix multiplication, because the product of any number of linear transformations is itself a linear transformation. You can stack as many layers as you want; without non-linearity, you get nothing more complex than a line.
 </Callout>
 
 <CodeProof
-  title="To see why this generalizes: three layers without activation"
-  code={`z³ = W³ · (W² · (W¹ · x + b¹) + b²) + b³
-   = W³W²W¹ · x + [W³W²b¹ + W³b² + b³]
-   = W'' · x + b''     ← still linear`}
+  title="Three layers without activation — still linear"
+  code={`z³ = W³(W²(W¹x + b¹) + b²) + b³
+   = W³W²W¹x + [W³W²b¹ + W³b² + b³]
+   = W″x + b″     ← still linear`}
 >
 No matter how deep you go, the composition of linear functions is always linear. Depth buys you nothing without non-linearity.
 </CodeProof>
@@ -90,7 +101,7 @@ Real classification problems — cancer vs. benign, spam vs. not spam, cat vs. d
 
 <InfoCard title="2. Linear functions have tiny expressive power">
 
-A linear function in <InlineMath>n</InlineMath> dimensions is described by just <InlineMath>n + 1</InlineMath> numbers. No matter how many layers you stack without non-linearity, the whole thing collapses to those same numbers.
+A linear function in $n$ dimensions is described by just $n + 1$ numbers. No matter how many layers you stack without non-linearity, the whole thing collapses to those same numbers.
 
 With enough neurons and non-linearities, a network can approximate **any function**. This is called the Universal Approximation Theorem — and it only holds because of non-linearity.
 
@@ -108,19 +119,19 @@ This only works if each layer can do something new with what it receives. With o
 
 ## The Fix: A Small Kink Changes Everything
 
-The solution is to insert a non-linear function between every pair of linear layers. It doesn't need to be complicated — even a function as simple as <InlineMath>max(0, z)</InlineMath> is enough to break the linearity and unlock the network's full representational power.
+The solution is to insert a non-linear function between every pair of linear layers. It doesn't need to be complicated — even a function as simple as $\max(0, z)$ is enough to break the linearity and unlock the network's full representational power.
 
 The most common choices:
 
 <div className="space-y-3 mt-3">
 
-<FormulaCard name="ReLU (Rectified Linear Unit)" formula="g(z) = max(0, z)">Zero for negative inputs, linear for positive. Simple, fast to compute, and works remarkably well in practice. The most widely used activation in deep networks today. Dead neurons (always outputting zero) can be an issue.</FormulaCard>
+<FormulaCard name="ReLU (Rectified Linear Unit)" formula="g(z) = \max(0,\, z)">Zero for negative inputs, linear for positive. Simple, fast to compute, and works remarkably well in practice. The most widely used activation in deep networks today. Dead neurons (always outputting zero) can be an issue.</FormulaCard>
 
-<FormulaCard name="Leaky ReLU" formula="g(z) = z if z > 0, else αz  (α ≈ 0.01)">Like ReLU but with a small slope for negative inputs, which keeps gradients flowing and avoids dead neurons entirely.</FormulaCard>
+<FormulaCard name="Leaky ReLU" formula="g(z) = \begin{cases} z & z > 0 \\ \alpha z & z \leq 0 \end{cases} \quad (\alpha \approx 0.01)">Like ReLU but with a small slope for negative inputs, which keeps gradients flowing and avoids dead neurons entirely.</FormulaCard>
 
-<FormulaCard name="tanh (Hyperbolic Tangent)" formula="g(z) = (eᶻ − e⁻ᶻ) / (eᶻ + e⁻ᶻ)">Squashes inputs to the range (−1, 1). Zero-centered, which makes optimization slightly easier than sigmoid. Common in RNNs.</FormulaCard>
+<FormulaCard name="tanh (Hyperbolic Tangent)" formula="g(z) = \dfrac{e^z - e^{-z}}{e^z + e^{-z}}">Squashes inputs to the range $(-1, 1)$. Zero-centered, which makes optimization slightly easier than sigmoid. Common in RNNs.</FormulaCard>
 
-<FormulaCard name="GELU (Gaussian Error Linear Unit)" formula="g(z) ≈ z · Φ(z)">A smooth, probabilistic activation used in transformers (BERT, GPT). Outperforms ReLU on many language tasks by being differentiable everywhere.</FormulaCard>
+<FormulaCard name="GELU (Gaussian Error Linear Unit)" formula="g(z) \approx z \cdot \Phi(z)">A smooth, probabilistic activation used in transformers (BERT, GPT). Outperforms ReLU on many language tasks by being differentiable everywhere. $\Phi(z)$ is the standard normal CDF.</FormulaCard>
 
 </div>
 
@@ -138,7 +149,7 @@ Without non-linear activation functions, neural networks — no matter how deep 
 - Linear models can only learn linear decision boundaries — they cannot solve problems like XOR, let alone image classification.
 - Non-linear activations give networks their universal approximation property: the ability to represent any continuous function.
 - They enable hierarchical learning: each layer extracts qualitatively different, higher-level features from the one before it.
-- The activation function itself can be simple — ReLU is just max(0, z) — but even this minimal non-linearity is sufficient to unlock the full representational power of deep learning.
+- The activation function itself can be simple — ReLU is just $\max(0, z)$ — but even this minimal non-linearity is sufficient to unlock the full representational power of deep learning.
 
 ---
 
