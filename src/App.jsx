@@ -176,7 +176,7 @@ export default function App() {
               <div key={activePost || activePage} className="page-enter flex-1">
                 {Post
                   ? postEntry.mdx
-                    ? <BlogLayout frontmatter={postEntry.meta}><Post components={mdxComponents} /></BlogLayout>
+                    ? <BlogLayout frontmatter={postEntry.meta} showToast={showToast}><Post components={mdxComponents} /></BlogLayout>
                     : <Post onBack={closePost} />
                   : <Page showToast={showToast} openPost={openPost} />
                 }
@@ -229,7 +229,7 @@ export default function App() {
             <div key={activePost || activePage} className="mt-3 page-enter">
               {Post
                 ? postEntry.mdx
-                  ? <BlogLayout frontmatter={postEntry.meta}><Post components={mdxComponents} /></BlogLayout>
+                  ? <BlogLayout frontmatter={postEntry.meta} showToast={showToast}><Post components={mdxComponents} /></BlogLayout>
                   : <Post onBack={closePost} />
                 : <Page showToast={showToast} openPost={openPost} />
               }

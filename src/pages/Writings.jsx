@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FiGithub, FiClock, FiFileText, FiDatabase, FiExternalLink } from 'react-icons/fi'
+import { FiGithub, FiClock, FiFileText, FiDatabase, FiExternalLink, FiCalendar } from 'react-icons/fi'
 import { blogPosts, research } from '../data'
 
 const LINK_ICONS = {
@@ -19,7 +19,6 @@ export default function Writings({ openPost }) {
         Writings
       </h2>
 
-      {/* Tab switcher */}
       <div className="flex gap-1 mb-6 p-1 glass-inner rounded-xl w-fit">
         {[{ key: 'blog', label: 'Blog Posts' }, { key: 'research', label: 'Research' }].map(({ key, label }) => (
           <button
@@ -40,50 +39,52 @@ export default function Writings({ openPost }) {
 
       {tab === 'blog' && (
         <div className="grid sm:grid-cols-2 gap-4">
-          {blogPosts.map(post => {
-            const live = !!post.slug
-            return (
-              <article
-                key={post.id}
-                onClick={live ? () => openPost(post.slug) : undefined}
-                className={[
-                  'rounded-xl overflow-hidden glass-inner relative transition-all duration-200',
-                  live
-                    ? 'cursor-pointer hover:ring-1 hover:ring-accent/30 hover:-translate-y-0.5 hover:shadow-lg active:scale-[0.99]'
-                    : 'opacity-60 select-none cursor-default',
-                ].join(' ')}
-              >
-                {!live && (
-                  <div className="absolute top-2 right-2 z-10 flex items-center gap-1
-                                  glass text-[9px] font-semibold text-slate-500 dark:text-slate-400
-                                  px-2 py-0.5 rounded-full">
-                    <FiClock size={8}/> Coming Soon
-                  </div>
-                )}
-                <div className="aspect-video overflow-hidden bg-slate-100 dark:bg-white/[0.03]">
-                  <img src={post.image} alt={post.title} loading="lazy"
-                       className="w-full h-full object-cover" />
-                </div>
-                <div className="p-4">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[10px] font-semibold
-                                     text-accent bg-accent/[0.09] dark:bg-accent/[0.12]
+          {blogPosts.map(post => (
+            <article
+              key={post.id}
+              onClick={() => openPost(post.slug)}
+              className="cursor-pointer group hover-lift rounded-2xl overflow-hidden glass-inner"
+            >
+              <div className="aspect-[16/9] overflow-hidden bg-slate-100 dark:bg-white/[0.03]">
+                {post.image
+                  ? <img src={post.image} alt={post.title} loading="lazy"
+                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]" />
+                  : <div className="w-full h-full flex items-center justify-center
+                                    text-slate-300 dark:text-slate-700 text-[11px] font-medium">
+                      {post.category}
+                    </div>
+                }
+              </div>
+              <div className="p-5">
+                <div className="flex items-center gap-2.5 flex-wrap mb-2.5">
+                  {post.category && (
+                    <span className="text-[10px] font-semibold text-accent
+                                     bg-accent/[0.09] dark:bg-accent/[0.12]
                                      border border-accent/[0.18] dark:border-accent/[0.20]
-                                     px-2 py-0.5 rounded-full">
+                                     px-2.5 py-0.5 rounded-full">
                       {post.category}
                     </span>
-                    <span className="text-[10px] text-slate-400 dark:text-slate-600">{post.date}</span>
-                  </div>
-                  <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-200 mb-1.5 line-clamp-2">
-                    {post.title}
-                  </h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-500 leading-relaxed line-clamp-3">
-                    {post.desc}
-                  </p>
+                  )}
+                  <span className="flex items-center gap-1 text-[10px] text-slate-400 dark:text-slate-500">
+                    <FiCalendar size={9} /> {post.date}
+                  </span>
+                  {post.readTime && (
+                    <span className="flex items-center gap-1 text-[10px] text-slate-400 dark:text-slate-500">
+                      <FiClock size={9} /> {post.readTime}
+                    </span>
+                  )}
                 </div>
-              </article>
-            )
-          })}
+                <h3 className="text-[15px] font-semibold text-slate-900 dark:text-slate-100
+                               leading-snug line-clamp-2 mb-1.5
+                               group-hover:text-accent transition-colors duration-150">
+                  {post.title}
+                </h3>
+                <p className="text-[13px] text-slate-500 dark:text-slate-500 leading-relaxed line-clamp-3">
+                  {post.desc}
+                </p>
+              </div>
+            </article>
+          ))}
         </div>
       )}
 
@@ -91,7 +92,6 @@ export default function Writings({ openPost }) {
         <div className="space-y-4">
           {research.map(pub => (
             <div key={pub.id} className="p-5 rounded-xl glass-inner">
-              {/* Research badge — uses accent, not hardcoded violet */}
               <span className="inline-block text-[10px] font-semibold
                                text-accent bg-accent/[0.09] dark:bg-accent/[0.12]
                                border border-accent/[0.18] dark:border-accent/[0.20]

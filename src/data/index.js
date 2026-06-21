@@ -306,49 +306,10 @@ export const projects = [
 ]
 
 const _mdx = import.meta.glob('../posts/*.mdx', { eager: true })
-const _mdxBlogPosts = Object.values(_mdx)
+export const blogPosts = Object.values(_mdx)
   .filter(m => m.frontmatter?.slug)
   .map((m, i) => ({ id: 100 + i, ...m.frontmatter }))
-
-export const blogPosts = [
-  {
-    id: 1,
-    title: 'NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis',
-    category: 'Deep Learning',
-    date: 'Mar 23, 2023',
-    image: '/blog/nerf/image38.png',
-    desc: 'A walkthrough of the landmark NeRF paper — how implicit neural representations render photorealistic novel views from 2D image collections.',
-    slug: 'nerf',
-  },
-  {
-    id: 2,
-    title: 'Why Do We Need Non-Linear Activation Functions?',
-    category: 'Deep Learning',
-    date: 'Jan 10, 2023',
-    image: '/blog/activation/network.png',
-    desc: 'Strip activation functions from any neural network and it collapses into a single linear equation. Here\'s the math that proves it — and why non-linearity changes everything.',
-    slug: 'activation',
-  },
-  {
-    id: 3,
-    title: 'Attention Is All You Need — Explained',
-    category: 'Deep Learning',
-    date: 'Dec 5, 2022',
-    image: '/images/Attention.png',
-    desc: 'Multi-head self-attention, positional encodings, and why the transformer architecture replaced RNNs for sequence modelling.',
-    href: '#',
-  },
-  {
-    id: 4,
-    title: 'Stable Diffusion Explained — From Noise to Image',
-    category: 'Generative AI',
-    date: 'Jun 1, 2023',
-    image: '/images/Diffusion.jpg',
-    desc: 'The DDPM forward/reverse process, CLIP text conditioning, and the role of the VAE encoder/decoder in latent diffusion.',
-    href: '#',
-  },
-  ..._mdxBlogPosts,
-]
+  .sort((a, b) => new Date(b.date) - new Date(a.date))
 
 export const research = [
   {
