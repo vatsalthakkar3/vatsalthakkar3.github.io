@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { FiCalendar, FiClock, FiTwitter, FiLinkedin, FiLink } from 'react-icons/fi'
+import { FiCalendar, FiClock, FiTwitter, FiLinkedin, FiLink, FiHeart } from 'react-icons/fi'
 import { SiYcombinator, SiReddit } from 'react-icons/si'
 import Mermaid from './Mermaid'
 
@@ -134,6 +134,40 @@ function CodeProof({ title, code, children }) {
   )
 }
 
+function LikeButton({ slug }) {
+  const key = `blog-liked-${slug}`
+  const [liked, setLiked] = useState(() => localStorage.getItem(key) === '1')
+  const [burst, setBurst] = useState(false)
+
+  const toggle = () => {
+    const next = !liked
+    setLiked(next)
+    localStorage.setItem(key, next ? '1' : '0')
+    if (next) { setBurst(true); setTimeout(() => setBurst(false), 300) }
+  }
+
+  return (
+    <button
+      onClick={toggle}
+      aria-label={liked ? 'Unlike this post' : 'Like this post'}
+      className={[
+        'btn-tactile flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-medium',
+        'transition-all duration-150',
+        burst ? 'scale-125' : 'scale-100',
+        liked
+          ? 'text-rose-500 dark:text-rose-400 bg-rose-500/[0.08] dark:bg-rose-400/[0.10]'
+          : 'text-slate-400 dark:text-slate-500 hover:text-rose-400 hover:bg-rose-500/[0.07]',
+      ].join(' ')}
+    >
+      <FiHeart
+        size={13}
+        className={`transition-all duration-150 ${liked ? 'fill-rose-500 dark:fill-rose-400 stroke-rose-500 dark:stroke-rose-400' : ''}`}
+      />
+      {liked ? 'Liked' : 'Like'}
+    </button>
+  )
+}
+
 const SHARE_PLATFORMS = [
   {
     key: 'x',
@@ -175,8 +209,10 @@ function ShareBar({ title, slug, showToast }) {
 
   return (
     <div className="mt-10 pt-5 border-t border-slate-200 dark:border-white/[0.07]
-                    flex items-center gap-0.5 flex-wrap">
-      <span className="text-[11px] text-slate-400 dark:text-slate-500 mr-2 flex-shrink-0">
+                    flex items-center gap-2 flex-wrap">
+      <LikeButton slug={slug} />
+      <div className="w-px h-4 bg-slate-200 dark:bg-white/[0.08] flex-shrink-0" />
+      <span className="text-[11px] text-slate-400 dark:text-slate-500 flex-shrink-0">
         Share
       </span>
       {SHARE_PLATFORMS.map(({ key, label, Icon, href }) => (
