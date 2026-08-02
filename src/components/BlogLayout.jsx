@@ -496,7 +496,7 @@ export default function BlogLayout({ frontmatter, children, showToast }) {
           </p>
         )}
 
-        <p className="text-xs text-slate-400 dark:text-slate-600">Vatsal Thakkar · University of Georgia</p>
+        <p className="text-xs text-slate-400 dark:text-slate-600">Vatsal Thakkar</p>
       </header>
 
       <div className="flex gap-12">
