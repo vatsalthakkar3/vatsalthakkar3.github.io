@@ -1,0 +1,237 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00100A"/>
+      <stop offset="100%" stop-color="#001A10"/>
+    </linearGradient>
+    <linearGradient id="blockFull" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#065F46"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <linearGradient id="blockActive" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="100%" stop-color="#34D399"/>
+    </linearGradient>
+    <linearGradient id="blockFree" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#022C22"/>
+      <stop offset="100%" stop-color="#064E3B"/>
+    </linearGradient>
+    <filter id="glow3">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#10B981"/>
+    </marker>
+    <marker id="arrowGreenSm" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#34D399"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bg3)"/>
+
+  <!-- Grid -->
+  <g opacity="0.05" stroke="#10B981" stroke-width="0.5">
+    <line x1="0" y1="67.5" x2="1200" y2="67.5"/>
+    <line x1="0" y1="135" x2="1200" y2="135"/>
+    <line x1="0" y1="202.5" x2="1200" y2="202.5"/>
+    <line x1="0" y1="270" x2="1200" y2="270"/>
+    <line x1="0" y1="337.5" x2="1200" y2="337.5"/>
+    <line x1="0" y1="405" x2="1200" y2="405"/>
+    <line x1="0" y1="472.5" x2="1200" y2="472.5"/>
+    <line x1="0" y1="540" x2="1200" y2="540"/>
+    <line x1="120" y1="0" x2="120" y2="675"/>
+    <line x1="240" y1="0" x2="240" y2="675"/>
+    <line x1="360" y1="0" x2="360" y2="675"/>
+    <line x1="480" y1="0" x2="480" y2="675"/>
+    <line x1="600" y1="0" x2="600" y2="675"/>
+    <line x1="720" y1="0" x2="720" y2="675"/>
+    <line x1="840" y1="0" x2="840" y2="675"/>
+    <line x1="960" y1="0" x2="960" y2="675"/>
+    <line x1="1080" y1="0" x2="1080" y2="675"/>
+  </g>
+
+  <!-- Glow blob -->
+  <ellipse cx="600" cy="320" rx="420" ry="200" fill="#10B981" opacity="0.05"/>
+
+  <!-- ===== Continuous batching diagram (left side) ===== -->
+  <text x="60" y="100" font-family="'SF Mono',monospace" font-size="14" fill="#10B981" font-weight="bold">Continuous Batching</text>
+  <text x="60" y="118" font-family="'SF Mono',monospace" font-size="11" fill="#047857">Token-level scheduling · GPU never idles</text>
+
+  <!-- Time axis -->
+  <line x1="60" y1="445" x2="500" y2="445" stroke="#065F46" stroke-width="1.5"/>
+  <text x="520" y="449" font-family="'SF Mono',monospace" font-size="11" fill="#065F46">time →</text>
+
+  <!-- Request lanes -->
+  <!-- Req A: long -->
+  <text x="35" y="163" font-family="'SF Mono',monospace" font-size="11" fill="#34D399">Req A</text>
+  <rect x="60" y="148" width="380" height="28" rx="4" fill="url(#blockFull)" opacity="0.85"/>
+  <rect x="60" y="148" width="380" height="28" rx="4" fill="none" stroke="#10B981" stroke-width="1"/>
+  <text x="240" y="167" font-family="'SF Mono',monospace" font-size="10" fill="#A7F3D0" text-anchor="middle">decode · 95 tokens</text>
+
+  <!-- Req B: medium -->
+  <text x="35" y="207" font-family="'SF Mono',monospace" font-size="11" fill="#34D399">Req B</text>
+  <rect x="60" y="192" width="200" height="28" rx="4" fill="url(#blockFull)" opacity="0.85"/>
+  <rect x="60" y="192" width="200" height="28" rx="4" fill="none" stroke="#10B981" stroke-width="1"/>
+  <text x="160" y="211" font-family="'SF Mono',monospace" font-size="10" fill="#A7F3D0" text-anchor="middle">decode · 50 tokens</text>
+  <!-- B done → C immediately fills -->
+  <rect x="268" y="192" width="172" height="28" rx="4" fill="url(#blockActive)" opacity="0.9" filter="url(#glow3)"/>
+  <rect x="268" y="192" width="172" height="28" rx="4" fill="none" stroke="#34D399" stroke-width="1.5"/>
+  <text x="354" y="211" font-family="'SF Mono',monospace" font-size="10" fill="#ECFDF5" text-anchor="middle">Req D · new</text>
+
+  <!-- Req C: short -->
+  <text x="35" y="251" font-family="'SF Mono',monospace" font-size="11" fill="#34D399">Req C</text>
+  <rect x="60" y="236" width="110" height="28" rx="4" fill="url(#blockFull)" opacity="0.85"/>
+  <rect x="60" y="236" width="110" height="28" rx="4" fill="none" stroke="#10B981" stroke-width="1"/>
+  <text x="115" y="255" font-family="'SF Mono',monospace" font-size="10" fill="#A7F3D0" text-anchor="middle">done</text>
+  <!-- C done → E fills -->
+  <rect x="178" y="236" width="262" height="28" rx="4" fill="url(#blockActive)" opacity="0.9" filter="url(#glow3)"/>
+  <rect x="178" y="236" width="262" height="28" rx="4" fill="none" stroke="#34D399" stroke-width="1.5"/>
+  <text x="309" y="255" font-family="'SF Mono',monospace" font-size="10" fill="#ECFDF5" text-anchor="middle">Req E · new · immediately scheduled</text>
+
+  <!-- Static batching comparison -->
+  <text x="60" y="308" font-family="'SF Mono',monospace" font-size="11" fill="#065F46">Static batching (old approach):</text>
+  <rect x="60" y="318" width="380" height="28" rx="4" fill="#022C22" stroke="#065F46" stroke-width="1"/>
+  <rect x="60" y="318" width="200" height="28" rx="4" fill="#047857" opacity="0.5"/>
+  <text x="160" y="337" font-family="'SF Mono',monospace" font-size="10" fill="#6EE7B7" text-anchor="middle">Req B running</text>
+  <!-- gray wait region -->
+  <rect x="270" y="318" width="170" height="28" rx="0" fill="#011810" opacity="0.8"/>
+  <line x1="280" y1="322" x2="430" y2="342" stroke="#065F46" stroke-width="1" opacity="0.3"/>
+  <line x1="280" y1="342" x2="430" y2="322" stroke="#065F46" stroke-width="1" opacity="0.3"/>
+  <text x="350" y="337" font-family="'SF Mono',monospace" font-size="10" fill="#065F46" text-anchor="middle">GPU idles — waits for batch</text>
+
+  <!-- ===== PagedAttention (right side) ===== -->
+  <text x="560" y="100" font-family="'SF Mono',monospace" font-size="14" fill="#10B981" font-weight="bold">PagedAttention · KV Block Table</text>
+  <text x="560" y="118" font-family="'SF Mono',monospace" font-size="11" fill="#047857">Non-contiguous physical blocks · zero fragmentation</text>
+
+  <!-- Physical KV memory pool -->
+  <text x="560" y="148" font-family="'SF Mono',monospace" font-size="11" fill="#065F46">Physical KV Pool (HBM)</text>
+
+  <!-- Block grid 8 wide × 4 tall, 72×52 each -->
+  <g>
+    <!-- Row 1: blocks 0–7 -->
+    <rect x="560" y="158" width="68" height="48" rx="4" fill="url(#blockFull)" stroke="#10B981" stroke-width="1" opacity="0.9"/>
+    <text x="594" y="179" font-family="'SF Mono',monospace" font-size="9" fill="#A7F3D0" text-anchor="middle">blk 0</text>
+    <text x="594" y="192" font-family="'SF Mono',monospace" font-size="8" fill="#6EE7B7" text-anchor="middle">Req-1 K0-K15</text>
+
+    <rect x="634" y="158" width="68" height="48" rx="4" fill="url(#blockFull)" stroke="#10B981" stroke-width="1" opacity="0.9"/>
+    <text x="668" y="179" font-family="'SF Mono',monospace" font-size="9" fill="#A7F3D0" text-anchor="middle">blk 1</text>
+    <text x="668" y="192" font-family="'SF Mono',monospace" font-size="8" fill="#6EE7B7" text-anchor="middle">Req-1 K16-K31</text>
+
+    <rect x="708" y="158" width="68" height="48" rx="4" fill="url(#blockFull)" stroke="#10B981" stroke-width="1" opacity="0.9"/>
+    <text x="742" y="179" font-family="'SF Mono',monospace" font-size="9" fill="#A7F3D0" text-anchor="middle">blk 2</text>
+    <text x="742" y="192" font-family="'SF Mono',monospace" font-size="8" fill="#6EE7B7" text-anchor="middle">Req-2 K0-K15</text>
+
+    <rect x="782" y="158" width="68" height="48" rx="4" fill="url(#blockFull)" stroke="#10B981" stroke-width="1" opacity="0.9"/>
+    <text x="816" y="179" font-family="'SF Mono',monospace" font-size="9" fill="#A7F3D0" text-anchor="middle">blk 3</text>
+    <text x="816" y="192" font-family="'SF Mono',monospace" font-size="8" fill="#6EE7B7" text-anchor="middle">Req-3 K0-K15</text>
+
+    <rect x="856" y="158" width="68" height="48" rx="4" fill="url(#blockActive)" stroke="#34D399" stroke-width="1.5" opacity="0.95" filter="url(#glow3)"/>
+    <text x="890" y="179" font-family="'SF Mono',monospace" font-size="9" fill="#ECFDF5" text-anchor="middle">blk 4</text>
+    <text x="890" y="192" font-family="'SF Mono',monospace" font-size="8" fill="#D1FAE5" text-anchor="middle">Req-1 K32-K47</text>
+
+    <rect x="930" y="158" width="68" height="48" rx="4" fill="url(#blockFull)" stroke="#10B981" stroke-width="1" opacity="0.9"/>
+    <text x="964" y="179" font-family="'SF Mono',monospace" font-size="9" fill="#A7F3D0" text-anchor="middle">blk 5</text>
+    <text x="964" y="192" font-family="'SF Mono',monospace" font-size="8" fill="#6EE7B7" text-anchor="middle">Req-2 K16-K31</text>
+
+    <rect x="1004" y="158" width="68" height="48" rx="4" fill="url(#blockFree)" stroke="#065F46" stroke-width="1" opacity="0.7" stroke-dasharray="3,2"/>
+    <text x="1038" y="182" font-family="'SF Mono',monospace" font-size="9" fill="#065F46" text-anchor="middle">blk 6 · free</text>
+
+    <rect x="1078" y="158" width="68" height="48" rx="4" fill="url(#blockFree)" stroke="#065F46" stroke-width="1" opacity="0.7" stroke-dasharray="3,2"/>
+    <text x="1112" y="182" font-family="'SF Mono',monospace" font-size="9" fill="#065F46" text-anchor="middle">blk 7 · free</text>
+
+    <!-- Row 2 -->
+    <rect x="560" y="212" width="68" height="48" rx="4" fill="url(#blockFull)" stroke="#10B981" stroke-width="1" opacity="0.9"/>
+    <text x="594" y="233" font-family="'SF Mono',monospace" font-size="9" fill="#A7F3D0" text-anchor="middle">blk 8</text>
+    <text x="594" y="246" font-family="'SF Mono',monospace" font-size="8" fill="#6EE7B7" text-anchor="middle">Req-3 K16-K31</text>
+
+    <rect x="634" y="212" width="68" height="48" rx="4" fill="url(#blockFree)" stroke="#065F46" stroke-width="1" opacity="0.7" stroke-dasharray="3,2"/>
+    <text x="668" y="236" font-family="'SF Mono',monospace" font-size="9" fill="#065F46" text-anchor="middle">blk 9 · free</text>
+
+    <rect x="708" y="212" width="68" height="48" rx="4" fill="url(#blockFull)" stroke="#10B981" stroke-width="1" opacity="0.9"/>
+    <text x="742" y="233" font-family="'SF Mono',monospace" font-size="9" fill="#A7F3D0" text-anchor="middle">blk 10</text>
+    <text x="742" y="246" font-family="'SF Mono',monospace" font-size="8" fill="#6EE7B7" text-anchor="middle">Req-4 K0-K15</text>
+
+    <rect x="782" y="212" width="68" height="48" rx="4" fill="url(#blockFull)" stroke="#10B981" stroke-width="1" opacity="0.9"/>
+    <text x="816" y="233" font-family="'SF Mono',monospace" font-size="9" fill="#A7F3D0" text-anchor="middle">blk 11</text>
+    <text x="816" y="246" font-family="'SF Mono',monospace" font-size="8" fill="#6EE7B7" text-anchor="middle">Req-5 K0-K15</text>
+
+    <rect x="856" y="212" width="68" height="48" rx="4" fill="url(#blockFree)" stroke="#065F46" stroke-width="1" opacity="0.7" stroke-dasharray="3,2"/>
+    <text x="890" y="236" font-family="'SF Mono',monospace" font-size="9" fill="#065F46" text-anchor="middle">blk 12 · free</text>
+
+    <rect x="930" y="212" width="68" height="48" rx="4" fill="url(#blockFull)" stroke="#10B981" stroke-width="1" opacity="0.9"/>
+    <text x="964" y="233" font-family="'SF Mono',monospace" font-size="9" fill="#A7F3D0" text-anchor="middle">blk 13</text>
+    <text x="964" y="246" font-family="'SF Mono',monospace" font-size="8" fill="#6EE7B7" text-anchor="middle">Req-6 K0-K15</text>
+
+    <rect x="1004" y="212" width="68" height="48" rx="4" fill="url(#blockFree)" stroke="#065F46" stroke-width="1" opacity="0.7" stroke-dasharray="3,2"/>
+    <text x="1038" y="236" font-family="'SF Mono',monospace" font-size="9" fill="#065F46" text-anchor="middle">blk 14 · free</text>
+
+    <rect x="1078" y="212" width="68" height="48" rx="4" fill="url(#blockFull)" stroke="#10B981" stroke-width="1" opacity="0.9"/>
+    <text x="1112" y="233" font-family="'SF Mono',monospace" font-size="9" fill="#A7F3D0" text-anchor="middle">blk 15</text>
+    <text x="1112" y="246" font-family="'SF Mono',monospace" font-size="8" fill="#6EE7B7" text-anchor="middle">Req-7 K0-K15</text>
+  </g>
+
+  <!-- Block table for Req-1 -->
+  <text x="560" y="285" font-family="'SF Mono',monospace" font-size="11" fill="#10B981">Req-1 block table  →  [0, 1, 4]  (non-contiguous)</text>
+  <g>
+    <rect x="560" y="293" width="44" height="28" rx="3" fill="#047857" stroke="#10B981" stroke-width="1"/>
+    <text x="582" y="312" font-family="'SF Mono',monospace" font-size="11" fill="white" text-anchor="middle">0</text>
+    <rect x="610" y="293" width="44" height="28" rx="3" fill="#047857" stroke="#10B981" stroke-width="1"/>
+    <text x="632" y="312" font-family="'SF Mono',monospace" font-size="11" fill="white" text-anchor="middle">1</text>
+    <rect x="660" y="293" width="44" height="28" rx="3" fill="#10B981" stroke="#34D399" stroke-width="1.5" filter="url(#glow3)"/>
+    <text x="682" y="312" font-family="'SF Mono',monospace" font-size="11" fill="white" text-anchor="middle">4</text>
+    <text x="720" y="312" font-family="'SF Mono',monospace" font-size="11" fill="#065F46">← current write</text>
+  </g>
+
+  <!-- Prefix caching badge -->
+  <rect x="560" y="340" width="580" height="56" rx="8" fill="#022C22" stroke="#047857" stroke-width="1"/>
+  <text x="578" y="362" font-family="'SF Mono',monospace" font-size="12" fill="#10B981" font-weight="bold">Prefix Caching  (vLLM V1, on by default)</text>
+  <text x="578" y="382" font-family="'SF Mono',monospace" font-size="11" fill="#065F46">hash(token_ids) → reuse existing KV block · skip prefill for shared prefixes</text>
+  <text x="578" y="398" font-family="'SF Mono',monospace" font-size="11" fill="#065F46">system prompt once → all requests share it · TTFT ↓↓</text>
+
+  <!-- vLLM serve snippet (bottom-right) -->
+  <rect x="560" y="412" width="580" height="110" rx="8" fill="#011810" stroke="#047857" stroke-width="1"/>
+  <text x="580" y="434" font-family="'SF Mono',monospace" font-size="11" fill="#10B981">vLLM serve</text>
+  <text x="580" y="452" font-family="'SF Mono',monospace" font-size="10" fill="#34D399">vllm serve meta-llama/Meta-Llama-3-70B \</text>
+  <text x="580" y="468" font-family="'SF Mono',monospace" font-size="10" fill="#34D399">  --gpu-memory-utilization 0.90 \</text>
+  <text x="580" y="484" font-family="'SF Mono',monospace" font-size="10" fill="#34D399">  --enable-prefix-caching \</text>
+  <text x="580" y="500" font-family="'SF Mono',monospace" font-size="10" fill="#34D399">  --max-model-len 8192</text>
+  <text x="580" y="516" font-family="'SF Mono',monospace" font-size="10" fill="#047857">  # ~96% GPU memory utilization</text>
+
+  <!-- Utilization improvement callout -->
+  <rect x="60" y="390" width="460" height="130" rx="8" fill="#022C22" stroke="#047857" stroke-width="1"/>
+  <text x="80" y="414" font-family="'SF Mono',monospace" font-size="12" fill="#10B981" font-weight="bold">GPU Memory Utilization</text>
+  <!-- bar: old -->
+  <text x="80" y="435" font-family="'SF Mono',monospace" font-size="11" fill="#065F46">Static alloc:</text>
+  <rect x="185" y="422" width="150" height="18" rx="3" fill="#047857" opacity="0.6"/>
+  <text x="340" y="435" font-family="'SF Mono',monospace" font-size="11" fill="#065F46">20-40%</text>
+  <!-- bar: new -->
+  <text x="80" y="462" font-family="'SF Mono',monospace" font-size="11" fill="#10B981">PagedAttn:</text>
+  <rect x="185" y="449" width="300" height="18" rx="3" fill="#10B981" opacity="0.85" filter="url(#glow3)"/>
+  <text x="490" y="462" font-family="'SF Mono',monospace" font-size="11" fill="#34D399" font-weight="bold">~96%+</text>
+
+  <text x="80" y="490" font-family="'SF Mono',monospace" font-size="11" fill="#065F46">Borrowed from OS virtual memory paging.</text>
+  <text x="80" y="506" font-family="'SF Mono',monospace" font-size="11" fill="#065F46">Fixed-size KV blocks + indirection table =</text>
+  <text x="80" y="522" font-family="'SF Mono',monospace" font-size="11" fill="#065F46">zero internal/external fragmentation.</text>
+
+  <!-- ===== Title block ===== -->
+  <rect x="0" y="555" width="1200" height="120" fill="#010C06" opacity="0.95"/>
+  <line x1="0" y1="556" x2="1200" y2="556" stroke="#065F46" stroke-width="1"/>
+
+  <text x="60" y="608" font-family="system-ui,sans-serif" font-size="34" font-weight="700" fill="white" letter-spacing="-0.5">vLLM Serving Internals</text>
+  <text x="60" y="638" font-family="system-ui,sans-serif" font-size="17" fill="#10B981" letter-spacing="0.2">Continuous Batching · PagedAttention · Prefix Caching</text>
+
+  <!-- Tags -->
+  <rect x="840" y="588" width="56" height="22" rx="11" fill="#065F46" opacity="0.9"/>
+  <text x="868" y="604" font-family="system-ui,sans-serif" font-size="11" fill="#A7F3D0" text-anchor="middle">vLLM</text>
+  <rect x="904" y="588" width="76" height="22" rx="11" fill="#065F46" opacity="0.9"/>
+  <text x="942" y="604" font-family="system-ui,sans-serif" font-size="11" fill="#A7F3D0" text-anchor="middle">Inference</text>
+  <rect x="988" y="588" width="150" height="22" rx="11" fill="#065F46" opacity="0.9"/>
+  <text x="1063" y="604" font-family="system-ui,sans-serif" font-size="11" fill="#A7F3D0" text-anchor="middle">Production ML</text>
+
+  <text x="840" y="638" font-family="system-ui,sans-serif" font-size="13" fill="#1F4034">Vatsal Thakkar · Aug 2025</text>
+</svg>

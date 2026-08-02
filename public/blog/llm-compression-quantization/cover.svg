@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0C0A00"/>
+      <stop offset="100%" stop-color="#1A1200"/>
+    </linearGradient>
+    <linearGradient id="bf16Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#78350F"/>
+      <stop offset="100%" stop-color="#92400E"/>
+    </linearGradient>
+    <linearGradient id="int8Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#B45309"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <linearGradient id="int4Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+    <filter id="glow2">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#F59E0B"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bg2)"/>
+
+  <!-- Grid -->
+  <g opacity="0.05" stroke="#F59E0B" stroke-width="0.5">
+    <line x1="0" y1="67.5" x2="1200" y2="67.5"/>
+    <line x1="0" y1="135" x2="1200" y2="135"/>
+    <line x1="0" y1="202.5" x2="1200" y2="202.5"/>
+    <line x1="0" y1="270" x2="1200" y2="270"/>
+    <line x1="0" y1="337.5" x2="1200" y2="337.5"/>
+    <line x1="0" y1="405" x2="1200" y2="405"/>
+    <line x1="0" y1="472.5" x2="1200" y2="472.5"/>
+    <line x1="0" y1="540" x2="1200" y2="540"/>
+    <line x1="120" y1="0" x2="120" y2="675"/>
+    <line x1="240" y1="0" x2="240" y2="675"/>
+    <line x1="360" y1="0" x2="360" y2="675"/>
+    <line x1="480" y1="0" x2="480" y2="675"/>
+    <line x1="600" y1="0" x2="600" y2="675"/>
+    <line x1="720" y1="0" x2="720" y2="675"/>
+    <line x1="840" y1="0" x2="840" y2="675"/>
+    <line x1="960" y1="0" x2="960" y2="675"/>
+    <line x1="1080" y1="0" x2="1080" y2="675"/>
+  </g>
+
+  <!-- Ambient glow -->
+  <ellipse cx="600" cy="320" rx="420" ry="200" fill="#B45309" opacity="0.06"/>
+
+  <!-- ===== Weight matrix visualization ===== -->
+
+  <!-- BF16 weight matrix (large) -->
+  <g>
+    <text x="80" y="118" font-family="'SF Mono',monospace" font-size="13" fill="#F59E0B" opacity="0.8">BF16  (2 bytes/param)</text>
+    <text x="80" y="136" font-family="'SF Mono',monospace" font-size="11" fill="#78350F" opacity="0.9">Weight Matrix W</text>
+
+    <!-- 7x7 grid of cells, 44px each -->
+    <g fill="url(#bf16Grad)" stroke="#D97706" stroke-width="0.8" opacity="0.85">
+      <rect x="80" y="145" width="40" height="40" rx="2"/><rect x="124" y="145" width="40" height="40" rx="2"/>
+      <rect x="168" y="145" width="40" height="40" rx="2"/><rect x="212" y="145" width="40" height="40" rx="2"/>
+      <rect x="256" y="145" width="40" height="40" rx="2"/><rect x="300" y="145" width="40" height="40" rx="2"/>
+      <rect x="344" y="145" width="40" height="40" rx="2"/>
+
+      <rect x="80" y="189" width="40" height="40" rx="2"/><rect x="124" y="189" width="40" height="40" rx="2"/>
+      <rect x="168" y="189" width="40" height="40" rx="2"/><rect x="212" y="189" width="40" height="40" rx="2"/>
+      <rect x="256" y="189" width="40" height="40" rx="2"/><rect x="300" y="189" width="40" height="40" rx="2"/>
+      <rect x="344" y="189" width="40" height="40" rx="2"/>
+
+      <rect x="80" y="233" width="40" height="40" rx="2"/><rect x="124" y="233" width="40" height="40" rx="2"/>
+      <rect x="168" y="233" width="40" height="40" rx="2"/><rect x="212" y="233" width="40" height="40" rx="2"/>
+      <rect x="256" y="233" width="40" height="40" rx="2"/><rect x="300" y="233" width="40" height="40" rx="2"/>
+      <rect x="344" y="233" width="40" height="40" rx="2"/>
+
+      <rect x="80" y="277" width="40" height="40" rx="2"/><rect x="124" y="277" width="40" height="40" rx="2"/>
+      <rect x="168" y="277" width="40" height="40" rx="2"/><rect x="212" y="277" width="40" height="40" rx="2"/>
+      <rect x="256" y="277" width="40" height="40" rx="2"/><rect x="300" y="277" width="40" height="40" rx="2"/>
+      <rect x="344" y="277" width="40" height="40" rx="2"/>
+
+      <rect x="80" y="321" width="40" height="40" rx="2"/><rect x="124" y="321" width="40" height="40" rx="2"/>
+      <rect x="168" y="321" width="40" height="40" rx="2"/><rect x="212" y="321" width="40" height="40" rx="2"/>
+      <rect x="256" y="321" width="40" height="40" rx="2"/><rect x="300" y="321" width="40" height="40" rx="2"/>
+      <rect x="344" y="321" width="40" height="40" rx="2"/>
+
+      <rect x="80" y="365" width="40" height="40" rx="2"/><rect x="124" y="365" width="40" height="40" rx="2"/>
+      <rect x="168" y="365" width="40" height="40" rx="2"/><rect x="212" y="365" width="40" height="40" rx="2"/>
+      <rect x="256" y="365" width="40" height="40" rx="2"/><rect x="300" y="365" width="40" height="40" rx="2"/>
+      <rect x="344" y="365" width="40" height="40" rx="2"/>
+
+      <rect x="80" y="409" width="40" height="40" rx="2"/><rect x="124" y="409" width="40" height="40" rx="2"/>
+      <rect x="168" y="409" width="40" height="40" rx="2"/><rect x="212" y="409" width="40" height="40" rx="2"/>
+      <rect x="256" y="409" width="40" height="40" rx="2"/><rect x="300" y="409" width="40" height="40" rx="2"/>
+      <rect x="344" y="409" width="40" height="40" rx="2"/>
+    </g>
+    <!-- bit labels -->
+    <text x="95" y="169" font-family="'SF Mono',monospace" font-size="9" fill="#FDE68A" opacity="0.8">16b</text>
+    <text x="139" y="169" font-family="'SF Mono',monospace" font-size="9" fill="#FDE68A" opacity="0.8">16b</text>
+    <text x="183" y="169" font-family="'SF Mono',monospace" font-size="9" fill="#FDE68A" opacity="0.8">16b</text>
+
+    <!-- SIZE label -->
+    <text x="80" y="470" font-family="'SF Mono',monospace" font-size="14" fill="#F59E0B" font-weight="bold">14.0 GB  (7B BF16)</text>
+  </g>
+
+  <!-- Arrow 1: BF16 → INT8 -->
+  <line x1="430" y1="295" x2="515" y2="295" stroke="#F59E0B" stroke-width="2.5" marker-end="url(#arrowAmber)"/>
+  <text x="437" y="282" font-family="'SF Mono',monospace" font-size="11" fill="#F59E0B">GPTQ</text>
+  <text x="437" y="296" font-family="'SF Mono',monospace" font-size="11" fill="#D97706">/AWQ</text>
+  <text x="437" y="312" font-family="'SF Mono',monospace" font-size="10" fill="#78350F">−50%</text>
+
+  <!-- INT8 weight matrix (medium) -->
+  <g>
+    <text x="525" y="118" font-family="'SF Mono',monospace" font-size="13" fill="#F59E0B" opacity="0.8">INT8  (1 byte/param)</text>
+    <text x="525" y="136" font-family="'SF Mono',monospace" font-size="11" fill="#78350F" opacity="0.9">Quantized Ŵ</text>
+
+    <!-- 5x5 grid, 38px cells -->
+    <g fill="url(#int8Grad)" stroke="#F59E0B" stroke-width="0.8" opacity="0.9">
+      <rect x="525" y="145" width="35" height="35" rx="2"/><rect x="564" y="145" width="35" height="35" rx="2"/>
+      <rect x="603" y="145" width="35" height="35" rx="2"/><rect x="642" y="145" width="35" height="35" rx="2"/>
+      <rect x="681" y="145" width="35" height="35" rx="2"/>
+
+      <rect x="525" y="184" width="35" height="35" rx="2"/><rect x="564" y="184" width="35" height="35" rx="2"/>
+      <rect x="603" y="184" width="35" height="35" rx="2"/><rect x="642" y="184" width="35" height="35" rx="2"/>
+      <rect x="681" y="184" width="35" height="35" rx="2"/>
+
+      <rect x="525" y="223" width="35" height="35" rx="2"/><rect x="564" y="223" width="35" height="35" rx="2"/>
+      <rect x="603" y="223" width="35" height="35" rx="2"/><rect x="642" y="223" width="35" height="35" rx="2"/>
+      <rect x="681" y="223" width="35" height="35" rx="2"/>
+
+      <rect x="525" y="262" width="35" height="35" rx="2"/><rect x="564" y="262" width="35" height="35" rx="2"/>
+      <rect x="603" y="262" width="35" height="35" rx="2"/><rect x="642" y="262" width="35" height="35" rx="2"/>
+      <rect x="681" y="262" width="35" height="35" rx="2"/>
+
+      <rect x="525" y="301" width="35" height="35" rx="2"/><rect x="564" y="301" width="35" height="35" rx="2"/>
+      <rect x="603" y="301" width="35" height="35" rx="2"/><rect x="642" y="301" width="35" height="35" rx="2"/>
+      <rect x="681" y="301" width="35" height="35" rx="2"/>
+    </g>
+    <text x="530" y="163" font-family="'SF Mono',monospace" font-size="9" fill="#FEF3C7" opacity="0.9">8b</text>
+    <text x="569" y="163" font-family="'SF Mono',monospace" font-size="9" fill="#FEF3C7" opacity="0.9">8b</text>
+    <text x="608" y="163" font-family="'SF Mono',monospace" font-size="9" fill="#FEF3C7" opacity="0.9">8b</text>
+
+    <text x="525" y="470" font-family="'SF Mono',monospace" font-size="14" fill="#F59E0B" font-weight="bold">7.0 GB  (7B INT8)</text>
+  </g>
+
+  <!-- Arrow 2: INT8 → INT4 -->
+  <line x1="740" y1="245" x2="810" y2="245" stroke="#F59E0B" stroke-width="2.5" marker-end="url(#arrowAmber)"/>
+  <text x="747" y="232" font-family="'SF Mono',monospace" font-size="11" fill="#F59E0B">GPTQ</text>
+  <text x="747" y="246" font-family="'SF Mono',monospace" font-size="11" fill="#D97706">W4A16</text>
+  <text x="747" y="262" font-family="'SF Mono',monospace" font-size="10" fill="#78350F">−50%</text>
+
+  <!-- INT4 weight matrix (small) -->
+  <g>
+    <text x="820" y="118" font-family="'SF Mono',monospace" font-size="13" fill="#F59E0B" opacity="0.8">INT4  (0.5 bytes/param)</text>
+    <text x="820" y="136" font-family="'SF Mono',monospace" font-size="11" fill="#78350F" opacity="0.9">Quantized Ŵ</text>
+
+    <!-- 4x4 grid, 30px cells -->
+    <g fill="url(#int4Grad)" stroke="#FDE68A" stroke-width="0.8" filter="url(#glow2)" opacity="0.95">
+      <rect x="820" y="145" width="28" height="28" rx="2"/><rect x="852" y="145" width="28" height="28" rx="2"/>
+      <rect x="884" y="145" width="28" height="28" rx="2"/><rect x="916" y="145" width="28" height="28" rx="2"/>
+
+      <rect x="820" y="177" width="28" height="28" rx="2"/><rect x="852" y="177" width="28" height="28" rx="2"/>
+      <rect x="884" y="177" width="28" height="28" rx="2"/><rect x="916" y="177" width="28" height="28" rx="2"/>
+
+      <rect x="820" y="209" width="28" height="28" rx="2"/><rect x="852" y="209" width="28" height="28" rx="2"/>
+      <rect x="884" y="209" width="28" height="28" rx="2"/><rect x="916" y="209" width="28" height="28" rx="2"/>
+
+      <rect x="820" y="241" width="28" height="28" rx="2"/><rect x="852" y="241" width="28" height="28" rx="2"/>
+      <rect x="884" y="241" width="28" height="28" rx="2"/><rect x="916" y="241" width="28" height="28" rx="2"/>
+    </g>
+    <text x="823" y="161" font-family="'SF Mono',monospace" font-size="8" fill="#FEF9C3" opacity="0.9">4b</text>
+    <text x="855" y="161" font-family="'SF Mono',monospace" font-size="8" fill="#FEF9C3" opacity="0.9">4b</text>
+
+    <text x="820" y="470" font-family="'SF Mono',monospace" font-size="14" fill="#F59E0B" font-weight="bold">3.5 GB  (7B INT4)</text>
+  </g>
+
+  <!-- Accuracy bar -->
+  <g>
+    <rect x="82" y="500" width="1060" height="38" rx="6" fill="#1A1200" stroke="#78350F" stroke-width="1"/>
+    <!-- BF16 segment -->
+    <rect x="82" y="500" width="355" height="38" rx="6" fill="#92400E" opacity="0.9"/>
+    <text x="95" y="524" font-family="'SF Mono',monospace" font-size="12" fill="#FDE68A" font-weight="bold">BF16  baseline accuracy</text>
+    <!-- INT8 segment -->
+    <rect x="437" y="500" width="250" height="38" fill="#B45309" opacity="0.9"/>
+    <text x="447" y="524" font-family="'SF Mono',monospace" font-size="12" fill="#FEF3C7">INT8  &lt;0.5% drop</text>
+    <!-- INT4 segment -->
+    <rect x="687" y="500" width="200" height="38" fill="#D97706" opacity="0.9"/>
+    <text x="697" y="524" font-family="'SF Mono',monospace" font-size="12" fill="#FEF9C3">INT4  ~1-2% drop</text>
+    <text x="897" y="524" font-family="'SF Mono',monospace" font-size="12" fill="#78350F" opacity="0.6">uncalibrated</text>
+  </g>
+
+  <!-- oneshot API snippet -->
+  <rect x="960" y="300" width="220" height="140" rx="8" fill="#0C0A00" stroke="#78350F" stroke-width="1" opacity="0.95"/>
+  <text x="975" y="322" font-family="'SF Mono',monospace" font-size="11" fill="#F59E0B">LLM Compressor</text>
+  <text x="975" y="340" font-family="'SF Mono',monospace" font-size="10" fill="#78350F">────────────────</text>
+  <text x="975" y="358" font-family="'SF Mono',monospace" font-size="10" fill="#94A3B8">from llmcompressor</text>
+  <text x="975" y="374" font-family="'SF Mono',monospace" font-size="10" fill="#94A3B8">  import oneshot</text>
+  <text x="975" y="392" font-family="'SF Mono',monospace" font-size="10" fill="#F59E0B">oneshot(</text>
+  <text x="975" y="408" font-family="'SF Mono',monospace" font-size="10" fill="#94A3B8">  model, recipe,</text>
+  <text x="975" y="424" font-family="'SF Mono',monospace" font-size="10" fill="#94A3B8">  dataset=calib</text>
+  <text x="975" y="440" font-family="'SF Mono',monospace" font-size="10" fill="#F59E0B">)</text>
+
+  <!-- ===== Title block ===== -->
+  <rect x="0" y="555" width="1200" height="120" fill="#060400" opacity="0.95"/>
+  <line x1="0" y1="556" x2="1200" y2="556" stroke="#78350F" stroke-width="1"/>
+
+  <text x="60" y="608" font-family="system-ui,sans-serif" font-size="34" font-weight="700" fill="white" letter-spacing="-0.5">Compressing LLMs for Production</text>
+  <text x="60" y="638" font-family="system-ui,sans-serif" font-size="17" fill="#F59E0B" letter-spacing="0.2">GPTQ · AWQ · SmoothQuant · LLM Compressor</text>
+
+  <!-- Tags -->
+  <rect x="840" y="588" width="100" height="22" rx="11" fill="#92400E" opacity="0.8"/>
+  <text x="890" y="604" font-family="system-ui,sans-serif" font-size="11" fill="#FDE68A" text-anchor="middle">Quantization</text>
+  <rect x="948" y="588" width="68" height="22" rx="11" fill="#92400E" opacity="0.8"/>
+  <text x="982" y="604" font-family="system-ui,sans-serif" font-size="11" fill="#FDE68A" text-anchor="middle">vLLM</text>
+  <rect x="1024" y="588" width="114" height="22" rx="11" fill="#92400E" opacity="0.8"/>
+  <text x="1081" y="604" font-family="system-ui,sans-serif" font-size="11" fill="#FDE68A" text-anchor="middle">Production ML</text>
+
+  <text x="840" y="638" font-family="system-ui,sans-serif" font-size="13" fill="#44403C">Vatsal Thakkar · Aug 2025</text>
+</svg>
