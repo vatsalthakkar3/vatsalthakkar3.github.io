@@ -41,9 +41,9 @@ graph TD
     PERF["Performance\n(latency + throughput)"]
     COST["Cost\n($/token, GPU-hours)"]
 
-    ACC <-->|"High accuracy + low latency\n= high cost"| PERF
-    PERF <-->|"Low cost + low latency\n= sacrificed accuracy"| COST
-    ACC <-->|"High accuracy + low cost\n= higher latency"| COST
+    ACC <-->|"High accuracy + low latency = high cost"| PERF
+    PERF <-->|"Low cost + low latency = sacrificed accuracy"| COST
+    ACC <-->|"High accuracy + low cost = higher latency"| COST
 ```
 
 In practice most deployments can optimize two corners at the expense of the third. The optimization techniques from the previous posts (quantization, continuous batching, PagedAttention) push the frontier — they give you more of all three — but they don't eliminate the tradeoffs. They change the slope.
@@ -234,7 +234,7 @@ The mean TTFT of 142ms looks like it comfortably meets a 200ms SLO. But the p99 
 ```mermaid
 xychart-beta
     title "TTFT Distribution: Mean vs Tail"
-    x-axis ["p10", "p25", "p50", "p75", "p90", "p95", "p99"]
+    x-axis [p10, p25, p50, p75, p90, p95, p99]
     y-axis "TTFT (ms)" 0 --> 300
     bar [90, 115, 138, 162, 180, 189, 241]
     line [200, 200, 200, 200, 200, 200, 200]

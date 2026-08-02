@@ -480,7 +480,7 @@ Putting it all together, here's what each optimization layer saves when serving 
 
 ```mermaid
 graph LR
-    A["Naive BF16\n1 request/time\n$$$$$"] -->|"vLLM + Continuous\nBatching + KV Mgmt"| B["vLLM BF16\nMany requests/time\n$$$"]
+    A["Naive BF16\n1 request/time\n$$$$"] -->|"vLLM + Continuous Batching"| B["vLLM BF16\nMany requests/time\n$$"]
     B -->|"W8A8 Quantization"| C["vLLM + FP8\nMore throughput/GPU\n$"]
 ```
 

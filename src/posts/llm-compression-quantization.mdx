@@ -121,7 +121,7 @@ That correction $\delta_F$ is applied to all remaining unquantized columns $F$ t
 ```mermaid
 flowchart LR
     A["Compute Hessian H\nfrom calibration data"] --> B["Process weight column 1\nquantize it"]
-    B --> C["Compute correction\nfor remaining columns\nΔW = -err/H⁻¹[j,j] × H⁻¹[:,j]"]
+    B --> C["Compute correction\nfor remaining columns\ndW = -err / H_inv(j,j) * H_inv(:,j)"]
     C --> D["Apply correction\nto columns 2..N"]
     D --> E["Process weight column 2\n(on corrected weights)"]
     E --> F["..."]
