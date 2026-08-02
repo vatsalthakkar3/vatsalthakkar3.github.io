@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0F1E"/>
+      <stop offset="100%" stop-color="#0D1B3E"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
+    </linearGradient>
+    <linearGradient id="hbmGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A6B"/>
+      <stop offset="100%" stop-color="#1A2F55"/>
+    </linearGradient>
+    <linearGradient id="sramGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#1D4ED8"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softglow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bg)"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.06" stroke="#60A5FA" stroke-width="0.5">
+    <line x1="0" y1="67.5" x2="1200" y2="67.5"/>
+    <line x1="0" y1="135" x2="1200" y2="135"/>
+    <line x1="0" y1="202.5" x2="1200" y2="202.5"/>
+    <line x1="0" y1="270" x2="1200" y2="270"/>
+    <line x1="0" y1="337.5" x2="1200" y2="337.5"/>
+    <line x1="0" y1="405" x2="1200" y2="405"/>
+    <line x1="0" y1="472.5" x2="1200" y2="472.5"/>
+    <line x1="0" y1="540" x2="1200" y2="540"/>
+    <line x1="0" y1="607.5" x2="1200" y2="607.5"/>
+    <line x1="120" y1="0" x2="120" y2="675"/>
+    <line x1="240" y1="0" x2="240" y2="675"/>
+    <line x1="360" y1="0" x2="360" y2="675"/>
+    <line x1="480" y1="0" x2="480" y2="675"/>
+    <line x1="600" y1="0" x2="600" y2="675"/>
+    <line x1="720" y1="0" x2="720" y2="675"/>
+    <line x1="840" y1="0" x2="840" y2="675"/>
+    <line x1="960" y1="0" x2="960" y2="675"/>
+    <line x1="1080" y1="0" x2="1080" y2="675"/>
+  </g>
+
+  <!-- Ambient glow blob -->
+  <ellipse cx="600" cy="340" rx="380" ry="220" fill="#2563EB" opacity="0.07"/>
+
+  <!-- ===== GPU Memory Hierarchy (center-right) ===== -->
+  <!-- CPU DRAM (largest, outermost) -->
+  <rect x="580" y="120" width="540" height="420" rx="12"
+        fill="none" stroke="#1E40AF" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.5"/>
+  <text x="590" y="148" font-family="'SF Mono',monospace" font-size="13" fill="#3B82F6" opacity="0.7">CPU DRAM  ~512 GB  ~50 GB/s</text>
+
+  <!-- HBM (VRAM) -->
+  <rect x="620" y="165" width="460" height="330" rx="10" fill="url(#hbmGrad)" opacity="0.85"/>
+  <rect x="620" y="165" width="460" height="330" rx="10" fill="none" stroke="#3B82F6" stroke-width="1.5" opacity="0.6"/>
+  <text x="632" y="190" font-family="'SF Mono',monospace" font-size="13" fill="#93C5FD">HBM (VRAM)  80 GB  ~2 TB/s</text>
+
+  <!-- KV Cache label -->
+  <text x="632" y="215" font-family="'SF Mono',monospace" font-size="11" fill="#60A5FA" opacity="0.7">KV Cache</text>
+
+  <!-- KV Cache blocks grid -->
+  <g filter="url(#glow)">
+    <!-- Row 1 -->
+    <rect x="632" y="225" width="52" height="36" rx="4" fill="#1D4ED8" opacity="0.9"/>
+    <rect x="692" y="225" width="52" height="36" rx="4" fill="#1D4ED8" opacity="0.9"/>
+    <rect x="752" y="225" width="52" height="36" rx="4" fill="#1D4ED8" opacity="0.9"/>
+    <rect x="812" y="225" width="52" height="36" rx="4" fill="#1D4ED8" opacity="0.9"/>
+    <rect x="872" y="225" width="52" height="36" rx="4" fill="#1D4ED8" opacity="0.9"/>
+    <rect x="932" y="225" width="52" height="36" rx="4" fill="#2563EB" stroke="#60A5FA" stroke-width="1" opacity="1"/>
+    <rect x="992" y="225" width="52" height="36" rx="4" fill="#1E3A6B" opacity="0.6"/>
+    <rect x="1012" y="225" width="32" height="36" rx="4" fill="#0F172A" opacity="0.7"/>
+    <!-- Row 2 -->
+    <rect x="632" y="269" width="52" height="36" rx="4" fill="#1D4ED8" opacity="0.9"/>
+    <rect x="692" y="269" width="52" height="36" rx="4" fill="#1D4ED8" opacity="0.9"/>
+    <rect x="752" y="269" width="52" height="36" rx="4" fill="#1D4ED8" opacity="0.9"/>
+    <rect x="812" y="269" width="52" height="36" rx="4" fill="#2563EB" stroke="#60A5FA" stroke-width="1" opacity="1"/>
+    <rect x="872" y="269" width="52" height="36" rx="4" fill="#1E3A6B" opacity="0.6"/>
+    <rect x="932" y="269" width="52" height="36" rx="4" fill="#1E3A6B" opacity="0.4"/>
+    <rect x="992" y="269" width="52" height="36" rx="4" fill="#0F172A" opacity="0.7"/>
+    <!-- Row 3 -->
+    <rect x="632" y="313" width="52" height="36" rx="4" fill="#1D4ED8" opacity="0.9"/>
+    <rect x="692" y="313" width="52" height="36" rx="4" fill="#1D4ED8" opacity="0.9"/>
+    <rect x="752" y="313" width="52" height="36" rx="4" fill="#1E3A6B" opacity="0.6"/>
+    <rect x="812" y="313" width="52" height="36" rx="4" fill="#1E3A6B" opacity="0.4"/>
+    <rect x="872" y="313" width="52" height="36" rx="4" fill="#0F172A" opacity="0.7"/>
+    <rect x="932" y="313" width="52" height="36" rx="4" fill="#0F172A" opacity="0.7"/>
+    <rect x="992" y="313" width="52" height="36" rx="4" fill="#0F172A" opacity="0.7"/>
+  </g>
+
+  <!-- SRAM (on-chip, small inner box) -->
+  <rect x="640" y="370" width="200" height="100" rx="8" fill="url(#sramGrad)" opacity="0.95"/>
+  <rect x="640" y="370" width="200" height="100" rx="8" fill="none" stroke="#93C5FD" stroke-width="2" filter="url(#glow)"/>
+  <text x="650" y="393" font-family="'SF Mono',monospace" font-size="11" fill="#BFDBFE">SRAM (on-chip)</text>
+  <text x="650" y="410" font-family="'SF Mono',monospace" font-size="11" fill="#BFDBFE">20 MB · ~19 TB/s</text>
+  <text x="650" y="428" font-family="'SF Mono',monospace" font-size="11" fill="#E0F2FE">Compute happens here</text>
+  <text x="650" y="446" font-family="'SF Mono',monospace" font-size="11" fill="#BFDBFE" opacity="0.7">registers + L1/L2 cache</text>
+
+  <!-- Bandwidth arrows right side -->
+  <g opacity="0.75">
+    <!-- HBM → SRAM arrow -->
+    <line x1="860" y1="380" x2="860" y2="415" stroke="#60A5FA" stroke-width="2" marker-end="url(#arrowBlue)"/>
+    <text x="868" y="402" font-family="'SF Mono',monospace" font-size="11" fill="#60A5FA">~2 TB/s</text>
+    <!-- DRAM → HBM arrow -->
+    <line x1="1100" y1="300" x2="1100" y2="240" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+    <text x="1010" y="275" font-family="'SF Mono',monospace" font-size="11" fill="#3B82F6" opacity="0.7">~50 GB/s</text>
+  </g>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#60A5FA"/>
+    </marker>
+  </defs>
+
+  <!-- ===== Token stream (left side) ===== -->
+  <!-- Tokens flowing into prefill -->
+  <g>
+    <text x="80" y="170" font-family="'SF Mono',monospace" font-size="13" fill="#94A3B8">Prompt tokens</text>
+    <!-- Token boxes -->
+    <rect x="80" y="182" width="44" height="30" rx="5" fill="#1E293B" stroke="#3B82F6" stroke-width="1.2"/>
+    <text x="102" y="202" font-family="'SF Mono',monospace" font-size="11" fill="#60A5FA" text-anchor="middle">tok</text>
+    <rect x="132" y="182" width="44" height="30" rx="5" fill="#1E293B" stroke="#3B82F6" stroke-width="1.2"/>
+    <text x="154" y="202" font-family="'SF Mono',monospace" font-size="11" fill="#60A5FA" text-anchor="middle">tok</text>
+    <rect x="184" y="182" width="44" height="30" rx="5" fill="#1E293B" stroke="#3B82F6" stroke-width="1.2"/>
+    <text x="206" y="202" font-family="'SF Mono',monospace" font-size="11" fill="#60A5FA" text-anchor="middle">tok</text>
+    <rect x="236" y="182" width="44" height="30" rx="5" fill="#1E293B" stroke="#3B82F6" stroke-width="1.2"/>
+    <text x="258" y="202" font-family="'SF Mono',monospace" font-size="11" fill="#60A5FA" text-anchor="middle">tok</text>
+    <rect x="288" y="182" width="44" height="30" rx="5" fill="#1E293B" stroke="#3B82F6" stroke-width="1.2"/>
+    <text x="310" y="202" font-family="'SF Mono',monospace" font-size="11" fill="#60A5FA" text-anchor="middle">tok</text>
+    <!-- arrow -->
+    <line x1="340" y1="197" x2="390" y2="197" stroke="#60A5FA" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+    <!-- Prefill block -->
+    <rect x="393" y="178" width="120" height="40" rx="7" fill="#1D4ED8" stroke="#93C5FD" stroke-width="1.5"/>
+    <text x="453" y="203" font-family="'SF Mono',monospace" font-size="13" fill="white" text-anchor="middle" font-weight="bold">PREFILL</text>
+
+    <!-- arrow to decode -->
+    <line x1="513" y1="197" x2="555" y2="197" stroke="#60A5FA" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+    <!-- Decode block -->
+    <rect x="558" y="178" width="110" height="40" rx="7" fill="#1E40AF" stroke="#60A5FA" stroke-width="1.5"/>
+    <text x="613" y="203" font-family="'SF Mono',monospace" font-size="13" fill="white" text-anchor="middle" font-weight="bold">DECODE</text>
+  </g>
+
+  <!-- Output tokens streaming -->
+  <g>
+    <text x="80" y="270" font-family="'SF Mono',monospace" font-size="12" fill="#94A3B8">Generated tokens</text>
+    <rect x="80" y="280" width="40" height="28" rx="5" fill="#0F2B5E" stroke="#2563EB" stroke-width="1"/>
+    <text x="100" y="299" font-family="'SF Mono',monospace" font-size="11" fill="#93C5FD" text-anchor="middle">The</text>
+    <rect x="128" y="280" width="40" height="28" rx="5" fill="#0F2B5E" stroke="#2563EB" stroke-width="1"/>
+    <text x="148" y="299" font-family="'SF Mono',monospace" font-size="11" fill="#93C5FD" text-anchor="middle">sky</text>
+    <rect x="176" y="280" width="40" height="28" rx="5" fill="#0F2B5E" stroke="#2563EB" stroke-width="1"/>
+    <text x="196" y="299" font-family="'SF Mono',monospace" font-size="11" fill="#93C5FD" text-anchor="middle">is</text>
+    <rect x="224" y="280" width="54" height="28" rx="5" fill="#0F2B5E" stroke="#2563EB" stroke-width="1"/>
+    <text x="251" y="299" font-family="'SF Mono',monospace" font-size="11" fill="#93C5FD" text-anchor="middle">blue</text>
+    <!-- blinking cursor block -->
+    <rect x="286" y="280" width="16" height="28" rx="2" fill="#60A5FA" opacity="0.9"/>
+  </g>
+
+  <!-- Phase labels with metrics -->
+  <g>
+    <rect x="80" y="340" width="460" height="72" rx="8" fill="#0F172A" opacity="0.7" stroke="#1E293B" stroke-width="1"/>
+    <text x="100" y="362" font-family="'SF Mono',monospace" font-size="12" fill="#60A5FA" font-weight="bold">Prefill</text>
+    <text x="100" y="380" font-family="'SF Mono',monospace" font-size="11" fill="#94A3B8">· Processes all prompt tokens in parallel</text>
+    <text x="100" y="396" font-family="'SF Mono',monospace" font-size="11" fill="#94A3B8">· Compute-bound  ·  Metric: TTFT</text>
+
+    <text x="290" y="362" font-family="'SF Mono',monospace" font-size="12" fill="#60A5FA" font-weight="bold">Decode</text>
+    <text x="290" y="380" font-family="'SF Mono',monospace" font-size="11" fill="#94A3B8">· One token per forward pass</text>
+    <text x="290" y="396" font-family="'SF Mono',monospace" font-size="11" fill="#94A3B8">· Memory BW-bound  ·  Metric: ITL</text>
+  </g>
+
+  <!-- Arithmetic intensity badge -->
+  <rect x="80" y="435" width="460" height="70" rx="8" fill="#0F172A" opacity="0.7" stroke="#1E293B" stroke-width="1"/>
+  <text x="100" y="458" font-family="'SF Mono',monospace" font-size="12" fill="#94A3B8">Arithmetic Intensity (decode, BF16):</text>
+  <text x="100" y="480" font-family="'SF Mono',monospace" font-size="15" fill="#60A5FA" font-weight="bold">~1 FLOP / byte  →  300× below H100 peak</text>
+  <text x="100" y="496" font-family="'SF Mono',monospace" font-size="11" fill="#64748B">GPU compute sits ~99.7% idle during decode</text>
+
+  <!-- ===== Title block ===== -->
+  <rect x="0" y="555" width="1200" height="120" fill="#060C1A" opacity="0.92"/>
+  <line x1="0" y1="556" x2="1200" y2="556" stroke="#1E3A6B" stroke-width="1"/>
+
+  <text x="60" y="608" font-family="system-ui,sans-serif" font-size="34" font-weight="700" fill="white" letter-spacing="-0.5">LLM Inference at Scale</text>
+  <text x="60" y="638" font-family="system-ui,sans-serif" font-size="17" fill="#60A5FA" letter-spacing="0.2">Memory · KV Cache · Quantization Fundamentals</text>
+
+  <!-- Tag chips -->
+  <rect x="840" y="588" width="68" height="22" rx="11" fill="#1D4ED8" opacity="0.8"/>
+  <text x="874" y="604" font-family="system-ui,sans-serif" font-size="11" fill="#BFDBFE" text-anchor="middle">LLM</text>
+  <rect x="916" y="588" width="84" height="22" rx="11" fill="#1D4ED8" opacity="0.8"/>
+  <text x="958" y="604" font-family="system-ui,sans-serif" font-size="11" fill="#BFDBFE" text-anchor="middle">Inference</text>
+  <rect x="1008" y="588" width="130" height="22" rx="11" fill="#1D4ED8" opacity="0.8"/>
+  <text x="1073" y="604" font-family="system-ui,sans-serif" font-size="11" fill="#BFDBFE" text-anchor="middle">Production ML</text>
+
+  <!-- Author -->
+  <text x="840" y="638" font-family="system-ui,sans-serif" font-size="13" fill="#475569">Vatsal Thakkar · Aug 2025</text>
+</svg>
