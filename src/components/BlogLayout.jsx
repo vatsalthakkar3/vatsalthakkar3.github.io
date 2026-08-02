@@ -159,7 +159,7 @@ function LikeButton({ slug }) {
         burst ? 'scale-125' : 'scale-100',
         liked
           ? 'text-rose-500 dark:text-rose-400 bg-rose-500/[0.08] dark:bg-rose-400/[0.10]'
-          : 'text-slate-400 dark:text-slate-500 hover:text-rose-400 hover:bg-rose-500/[0.07]',
+          : 'text-slate-500 dark:text-slate-400 hover:text-rose-400',
       ].join(' ')}
     >
       <FiHeart
@@ -371,13 +371,18 @@ export const mdxComponents = {
       )}
     </figure>
   ),
-  a: ({ href, children }) => (
-    <a href={href} target="_blank" rel="noopener"
-       className="text-accent underline underline-offset-2 decoration-accent/40
-                  hover:decoration-accent transition-colors duration-150">
-      {children}
-    </a>
-  ),
+  a: ({ href, children }) => {
+    const isInternal = href?.startsWith('/blog/')
+    return (
+      <a href={isInternal ? `#${href}` : href}
+         target={isInternal ? undefined : '_blank'}
+         rel={isInternal ? undefined : 'noopener'}
+         className="text-accent underline underline-offset-2 decoration-accent/40
+                    hover:decoration-accent transition-colors duration-150">
+        {children}
+      </a>
+    )
+  },
   table: ({ children }) => (
     <div className="my-5 overflow-x-auto rounded-xl glass-inner">
       <table className="w-full text-[13.5px] text-left">{children}</table>
@@ -483,6 +488,17 @@ export default function BlogLayout({ frontmatter, children, showToast }) {
             </span>
           )}
         </div>
+
+        {frontmatter.series && (
+          <p className="flex items-center gap-2 text-[11px] font-medium
+                        text-accent/75 dark:text-accent/65 mb-3">
+            <span className="inline-flex items-center justify-center w-[18px] h-[18px] rounded-full
+                             bg-accent/10 dark:bg-accent/15 text-[9px] font-bold text-accent flex-shrink-0">
+              {frontmatter.seriesOrder}
+            </span>
+            Part {frontmatter.seriesOrder} of {frontmatter.seriesTotal} · {frontmatter.series}
+          </p>
+        )}
 
         <h1 className="text-[22px] lg:text-[28px] font-bold
                        text-slate-900 dark:text-slate-100 leading-tight text-balance mb-4">

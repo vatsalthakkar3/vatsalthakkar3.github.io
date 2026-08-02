@@ -56,6 +56,16 @@ export default function Writings({ openPost }) {
                 }
               </div>
               <div className="p-5">
+                {post.series && (
+                  <p className="flex items-center gap-1.5 text-[10px] font-medium
+                                text-accent/70 dark:text-accent/60 mb-2">
+                    <span className="inline-flex items-center justify-center w-[15px] h-[15px] rounded-full
+                                     bg-accent/10 dark:bg-accent/15 text-[8px] font-bold text-accent flex-shrink-0">
+                      {post.seriesOrder}
+                    </span>
+                    Part {post.seriesOrder}/{post.seriesTotal} · {post.series}
+                  </p>
+                )}
                 <div className="flex items-center gap-2.5 flex-wrap mb-2.5">
                   {(Array.isArray(post.tags) ? post.tags : post.category ? [post.category] : []).map(tag => (
                     <span key={tag} className="text-[10px] font-semibold text-accent

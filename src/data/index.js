@@ -309,7 +309,10 @@ const _mdx = import.meta.glob('../posts/*.mdx', { eager: true })
 export const blogPosts = Object.values(_mdx)
   .filter(m => m.frontmatter?.slug)
   .map((m, i) => ({ id: 100 + i, ...m.frontmatter }))
-  .sort((a, b) => new Date(b.date) - new Date(a.date))
+  .sort((a, b) => {
+    const d = new Date(b.date) - new Date(a.date)
+    return d !== 0 ? d : (a.seriesOrder ?? 999) - (b.seriesOrder ?? 999)
+  })
 
 export const research = [
   {
