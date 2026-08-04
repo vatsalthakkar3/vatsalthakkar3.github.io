@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vite / env
+*.local
+.env
+.env.*
+
+# Claude Code (local AI assistant config & memory)
+.claude/
+
+# Claude Code skills (internal tooling, not part of the site)
+.github/skills/
+
+# Playwright MCP (local browser automation)
+.playwright-mcp/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Trunk linter cache
+.trunk/
+
+# Local planning docs
+TASKS.md
+PRODUCT.md
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/settings.json
+*.swp
+*.swo

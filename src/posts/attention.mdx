@@ -1,0 +1,169 @@
+---
+title: "Attention Is All You Need — Explained"
+date: "Dec 5, 2022"
+tags: ["Deep Learning", "LLM"]
+slug: "attention"
+image: "/images/Attention.png"
+desc: "Multi-head self-attention, positional encodings, and why the transformer replaced RNNs for sequence modelling."
+readTime: "~10 min read"
+---
+
+## The Problem with RNNs
+
+Before transformers, sequence models like RNNs and LSTMs were the standard for language tasks. They read a sentence one word at a time — left to right — and carry a hidden state that summarizes everything seen so far.
+
+This works, but it has two big problems:
+
+- **Slow to train** — each step depends on the previous one, so you can't parallelize across a sequence.
+- **Forgetting** — the hidden state has a fixed size. Long-range dependencies (a word at position 1 affecting position 50) get diluted as the state gets overwritten.
+
+The 2017 paper *Attention Is All You Need* by Vaswani et al. got rid of recurrence entirely and replaced it with a mechanism called **self-attention**.
+
+<Callout label="The core idea">
+Instead of reading a sequence step by step, self-attention lets every position in the sequence look at every other position simultaneously — in a single operation.
+</Callout>
+
+## Self-Attention
+
+Take the sentence: *"The cat sat on the mat because it was tired."*
+
+What does "it" refer to? A human instantly knows it's the cat. Self-attention lets the model figure this out by having each word ask: *which other words in this sentence are most relevant to me?*
+
+For each word, we compute three vectors:
+
+- **Query (Q)** — what this word is looking for
+- **Key (K)** — what this word is offering to other words
+- **Value (V)** — the actual content this word contributes
+
+The attention score between two words is computed as:
+
+$$
+\text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{Q K^\top}{\sqrt{d_k}}\right) V
+$$
+
+Here is a minimal Python implementation:
+
+```python
+import torch
+import torch.nn.functional as F
+
+def scaled_dot_product_attention(Q, K, V):
+    d_k = Q.size(-1)
+    scores = torch.matmul(Q, K.transpose(-2, -1)) / d_k ** 0.5
+    weights = F.softmax(scores, dim=-1)
+    return torch.matmul(weights, V), weights
+```
+
+Here `d_k` is the dimension of the key vectors. The `√d_k` scaling prevents the dot products from getting too large before the softmax, which would push gradients toward zero.
+
+The result is a weighted sum of all value vectors, where the weights tell you how much each position should attend to every other position.
+
+## Multi-Head Attention
+
+Running self-attention once gives you one perspective on the relationships in a sequence. The transformer runs it **h times in parallel** with different learned projections — these are the "heads".
+
+Each head can specialize:
+- One head might track grammatical agreement
+- Another might link pronouns to their antecedents
+- Another might capture verb-object relationships
+
+The outputs of all heads are concatenated and projected back to the model dimension:
+
+$$
+\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, \ldots, \text{head}_h)\, W^O
+$$
+
+In the original paper, $h = 8$ heads and $d_k = 64$.
+
+## Positional Encoding
+
+Self-attention has no sense of order — it treats the input as a set, not a sequence. The word "cat sat" and "sat cat" would produce the same attention weights.
+
+To fix this, positional encodings are added to the input embeddings before the first layer:
+
+$$
+\begin{aligned}
+PE_{(pos,\, 2i)}   &= \sin\!\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right) \\[6pt]
+PE_{(pos,\, 2i+1)} &= \cos\!\left(\frac{pos}{10000^{2i/d_{\text{model}}}}\right)
+\end{aligned}
+$$
+
+These sinusoidal functions give each position a unique fingerprint. The model learns to use them when word order matters.
+
+<Callout label="Why sinusoids?">
+The specific frequency pattern makes it easy for the model to attend to relative positions — the encoding at position `pos + k` can be expressed as a linear function of the encoding at `pos`, regardless of `k`.
+</Callout>
+
+## The Full Architecture
+
+The transformer has two parts:
+
+**Encoder** — reads the input sequence and builds a rich contextual representation of it. Each encoder layer runs multi-head self-attention followed by a position-wise feed-forward network.
+
+**Decoder** — generates the output sequence one token at a time. It uses:
+1. Masked self-attention (can only attend to previous output tokens)
+2. Cross-attention (attends to the encoder output)
+3. A feed-forward network
+
+Both encoder and decoder use **residual connections** and **layer normalization** around every sub-layer, which stabilizes training in deep stacks.
+
+## Why It Worked
+
+| Property | RNN | Transformer |
+| --- | --- | --- |
+| Parallelizable | No | Yes |
+| Long-range dependencies | Weak | Strong |
+| Training speed | Slow | Fast |
+| Memory | O(1) | O(n²) |
+
+The O(n²) memory cost of attention (every pair of positions) is the main trade-off. For long sequences this gets expensive — which is why later work like Longformer and FlashAttention focus on making attention more efficient.
+
+## What Came After
+
+The transformer became the foundation of essentially all modern AI:
+
+- **BERT** — encoder-only, pre-trained with masked language modelling
+- **GPT** — decoder-only, auto-regressive language generation
+- **Vision Transformer (ViT)** — same architecture applied to image patches
+- **Stable Diffusion** — uses a transformer (CLIP) for text conditioning
+
+The key insight — replace inductive structure (recurrence, convolution) with learned attention over raw data — turned out to generalize far beyond language.
+
+## Running It Yourself
+
+Clone the annotated implementation and run training in one command:
+
+```bash
+git clone https://github.com/karpathy/nanoGPT
+cd nanoGPT
+
+# install dependencies
+pip install torch numpy transformers datasets tiktoken wandb tqdm
+
+# train a small GPT on Shakespeare (~3 min on a GPU)
+python train.py config/train_shakespeare_char.py
+```
+
+Generate text after training:
+
+```bash
+python sample.py \
+  --out_dir=out-shakespeare-char \
+  --num_samples=5 \
+  --max_new_tokens=200
+```
+
+## Architecture Diagram
+
+```mermaid
+flowchart TD
+    A[Input Tokens] --> B[Token + Position Embedding]
+    B --> C[Multi-Head Self-Attention]
+    C --> D[Add and Norm]
+    D --> E[Feed-Forward Network]
+    E --> F[Add and Norm]
+    F --> G[Cross-Attention]
+    G --> H[Add and Norm]
+    H --> I[Linear + Softmax]
+    I --> J[Output Token]
+```

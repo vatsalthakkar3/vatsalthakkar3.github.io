@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0010"/>
+      <stop offset="100%" stop-color="#100018"/>
+    </linearGradient>
+    <linearGradient id="barFull" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#A78BFA"/>
+    </linearGradient>
+    <linearGradient id="barQuant" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5B21B6"/>
+      <stop offset="100%" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B5CF6"/>
+      <stop offset="100%" stop-color="#C4B5FD"/>
+    </linearGradient>
+    <filter id="glow4">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <marker id="arrowViolet" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#8B5CF6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="675" fill="url(#bg4)"/>
+
+  <!-- Grid -->
+  <g opacity="0.05" stroke="#8B5CF6" stroke-width="0.5">
+    <line x1="0" y1="67.5" x2="1200" y2="67.5"/>
+    <line x1="0" y1="135" x2="1200" y2="135"/>
+    <line x1="0" y1="202.5" x2="1200" y2="202.5"/>
+    <line x1="0" y1="270" x2="1200" y2="270"/>
+    <line x1="0" y1="337.5" x2="1200" y2="337.5"/>
+    <line x1="0" y1="405" x2="1200" y2="405"/>
+    <line x1="0" y1="472.5" x2="1200" y2="472.5"/>
+    <line x1="0" y1="540" x2="1200" y2="540"/>
+    <line x1="120" y1="0" x2="120" y2="675"/>
+    <line x1="240" y1="0" x2="240" y2="675"/>
+    <line x1="360" y1="0" x2="360" y2="675"/>
+    <line x1="480" y1="0" x2="480" y2="675"/>
+    <line x1="600" y1="0" x2="600" y2="675"/>
+    <line x1="720" y1="0" x2="720" y2="675"/>
+    <line x1="840" y1="0" x2="840" y2="675"/>
+    <line x1="960" y1="0" x2="960" y2="675"/>
+    <line x1="1080" y1="0" x2="1080" y2="675"/>
+  </g>
+
+  <!-- Glow blob -->
+  <ellipse cx="600" cy="320" rx="420" ry="200" fill="#7C3AED" opacity="0.05"/>
+
+  <!-- ===== Latency-Throughput tradeoff curve (left half) ===== -->
+  <text x="60" y="100" font-family="'SF Mono',monospace" font-size="14" fill="#8B5CF6" font-weight="bold">GuideLLM · Throughput vs Latency Tradeoff</text>
+  <text x="60" y="118" font-family="'SF Mono',monospace" font-size="11" fill="#5B21B6">Sweep concurrency · find the knee</text>
+
+  <!-- Chart area -->
+  <rect x="60" y="130" width="480" height="340" rx="6" fill="#06000E" stroke="#3B0764" stroke-width="1"/>
+
+  <!-- Axes -->
+  <!-- Y axis: Latency (TTFT p50, ms) -->
+  <line x1="110" y1="140" x2="110" y2="450" stroke="#4C1D95" stroke-width="1.5"/>
+  <line x1="110" y1="450" x2="520" y2="450" stroke="#4C1D95" stroke-width="1.5"/>
+
+  <!-- Y labels -->
+  <text x="105" y="455" font-family="'SF Mono',monospace" font-size="10" fill="#4C1D95" text-anchor="end">0</text>
+  <text x="105" y="400" font-family="'SF Mono',monospace" font-size="10" fill="#4C1D95" text-anchor="end">100</text>
+  <text x="105" y="346" font-family="'SF Mono',monospace" font-size="10" fill="#4C1D95" text-anchor="end">200</text>
+  <text x="105" y="292" font-family="'SF Mono',monospace" font-size="10" fill="#4C1D95" text-anchor="end">300</text>
+  <text x="105" y="238" font-family="'SF Mono',monospace" font-size="10" fill="#4C1D95" text-anchor="end">400</text>
+  <text x="105" y="184" font-family="'SF Mono',monospace" font-size="10" fill="#4C1D95" text-anchor="end">500</text>
+  <text x="105" y="153" font-family="'SF Mono',monospace" font-size="10" fill="#7C3AED" text-anchor="end">ms</text>
+
+  <!-- X labels -->
+  <text x="160" y="466" font-family="'SF Mono',monospace" font-size="10" fill="#4C1D95" text-anchor="middle">1</text>
+  <text x="230" y="466" font-family="'SF Mono',monospace" font-size="10" fill="#4C1D95" text-anchor="middle">4</text>
+  <text x="300" y="466" font-family="'SF Mono',monospace" font-size="10" fill="#4C1D95" text-anchor="middle">8</text>
+  <text x="370" y="466" font-family="'SF Mono',monospace" font-size="10" fill="#4C1D95" text-anchor="middle">16</text>
+  <text x="450" y="466" font-family="'SF Mono',monospace" font-size="10" fill="#4C1D95" text-anchor="middle">32</text>
+  <text x="510" y="466" font-family="'SF Mono',monospace" font-size="10" fill="#4C1D95" text-anchor="middle">64</text>
+  <text x="315" y="480" font-family="'SF Mono',monospace" font-size="10" fill="#5B21B6">Concurrent Requests →</text>
+
+  <!-- SLO line at 200ms -->
+  <line x1="110" y1="346" x2="520" y2="346" stroke="#EF4444" stroke-width="1" stroke-dasharray="5,3" opacity="0.6"/>
+  <text x="425" y="340" font-family="'SF Mono',monospace" font-size="9" fill="#EF4444" opacity="0.8">SLO 200ms</text>
+
+  <!-- Throughput curve (curve rising right) -->
+  <polyline points="160,448 230,446 300,442 370,434 450,415 510,380"
+            fill="none" stroke="#34D399" stroke-width="2" opacity="0.7"/>
+  <text x="515" y="376" font-family="'SF Mono',monospace" font-size="9" fill="#34D399">throughput</text>
+
+  <!-- TTFT p50 curve (knee shape) -->
+  <path d="M160,445 Q230,443 300,440 Q360,438 390,380 Q420,300 450,240 Q480,180 510,155"
+        fill="none" stroke="url(#curveGrad)" stroke-width="2.5" filter="url(#glow4)"/>
+
+  <!-- Data points -->
+  <circle cx="160" cy="445" r="4" fill="#8B5CF6"/>
+  <circle cx="230" cy="443" r="4" fill="#8B5CF6"/>
+  <circle cx="300" cy="440" r="4" fill="#8B5CF6"/>
+  <circle cx="370" cy="410" r="4" fill="#A78BFA"/>
+  <circle cx="405" cy="346" r="5" fill="#C4B5FD" stroke="#EF4444" stroke-width="1.5"/>
+  <circle cx="450" cy="240" r="4" fill="#A78BFA"/>
+  <circle cx="510" cy="155" r="4" fill="#7C3AED"/>
+
+  <!-- Knee annotation -->
+  <line x1="405" y1="346" x2="405" y2="280" stroke="#C4B5FD" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="410" y="270" font-family="'SF Mono',monospace" font-size="10" fill="#C4B5FD">knee ≈ 16 req</text>
+  <text x="410" y="284" font-family="'SF Mono',monospace" font-size="10" fill="#C4B5FD">→ optimal point</text>
+
+  <!-- TTFT label -->
+  <text x="162" y="380" font-family="'SF Mono',monospace" font-size="9" fill="#8B5CF6">TTFT p50</text>
+
+  <!-- ===== Quality benchmark bars (right half) ===== -->
+  <text x="600" y="100" font-family="'SF Mono',monospace" font-size="14" fill="#8B5CF6" font-weight="bold">lm-evaluation-harness · Quality Benchmarks</text>
+  <text x="600" y="118" font-family="'SF Mono',monospace" font-size="11" fill="#5B21B6">Base vs Quantized · ensure no regression</text>
+
+  <!-- Benchmark bars -->
+  <!-- MMLU -->
+  <text x="600" y="155" font-family="'SF Mono',monospace" font-size="12" fill="#6D28D9">MMLU (5-shot)</text>
+  <rect x="600" y="162" width="360" height="22" rx="3" fill="url(#barFull)" opacity="0.9"/>
+  <text x="965" y="178" font-family="'SF Mono',monospace" font-size="11" fill="#A78BFA">72.4%</text>
+  <rect x="600" y="188" width="352" height="22" rx="3" fill="url(#barQuant)" opacity="0.85"/>
+  <text x="957" y="204" font-family="'SF Mono',monospace" font-size="11" fill="#7C3AED">71.8%  (-0.6%)</text>
+
+  <!-- HellaSwag -->
+  <text x="600" y="232" font-family="'SF Mono',monospace" font-size="12" fill="#6D28D9">HellaSwag (10-shot)</text>
+  <rect x="600" y="239" width="460" height="22" rx="3" fill="url(#barFull)" opacity="0.9"/>
+  <text x="1065" y="255" font-family="'SF Mono',monospace" font-size="11" fill="#A78BFA">81.2%</text>
+  <rect x="600" y="265" width="451" height="22" rx="3" fill="url(#barQuant)" opacity="0.85"/>
+  <text x="1057" y="281" font-family="'SF Mono',monospace" font-size="11" fill="#7C3AED">80.7%  (-0.5%)</text>
+
+  <!-- WinoGrande -->
+  <text x="600" y="309" font-family="'SF Mono',monospace" font-size="12" fill="#6D28D9">WinoGrande (5-shot)</text>
+  <rect x="600" y="316" width="420" height="22" rx="3" fill="url(#barFull)" opacity="0.9"/>
+  <text x="1025" y="332" font-family="'SF Mono',monospace" font-size="11" fill="#A78BFA">78.5%</text>
+  <rect x="600" y="342" width="415" height="22" rx="3" fill="url(#barQuant)" opacity="0.85"/>
+  <text x="1020" y="358" font-family="'SF Mono',monospace" font-size="11" fill="#7C3AED">78.1%  (-0.4%)</text>
+
+  <!-- Legend -->
+  <rect x="600" y="378" width="14" height="12" rx="2" fill="#8B5CF6"/>
+  <text x="620" y="389" font-family="'SF Mono',monospace" font-size="11" fill="#A78BFA">BF16 (base)</text>
+  <rect x="720" y="378" width="14" height="12" rx="2" fill="#5B21B6"/>
+  <text x="740" y="389" font-family="'SF Mono',monospace" font-size="11" fill="#7C3AED">W4A16 quantized</text>
+
+  <!-- CLI snippet -->
+  <rect x="600" y="412" width="560" height="110" rx="8" fill="#06000E" stroke="#3B0764" stroke-width="1"/>
+  <text x="618" y="434" font-family="'SF Mono',monospace" font-size="11" fill="#8B5CF6">lm-evaluation-harness</text>
+  <text x="618" y="452" font-family="'SF Mono',monospace" font-size="10" fill="#A78BFA">lm_eval --model vllm \</text>
+  <text x="618" y="468" font-family="'SF Mono',monospace" font-size="10" fill="#A78BFA">  --model_args pretrained=./qwen3-w4a16 \</text>
+  <text x="618" y="484" font-family="'SF Mono',monospace" font-size="10" fill="#A78BFA">  --tasks mmlu,hellaswag \</text>
+  <text x="618" y="500" font-family="'SF Mono',monospace" font-size="10" fill="#A78BFA">  --num_fewshot 5 \</text>
+  <text x="618" y="516" font-family="'SF Mono',monospace" font-size="10" fill="#A78BFA">  --output_path ./results</text>
+
+  <!-- Tradeoff triangle annotation -->
+  <rect x="60" y="500" width="480" height="36" rx="6" fill="#06000E" stroke="#3B0764" stroke-width="1"/>
+  <text x="80" y="520" font-family="'SF Mono',monospace" font-size="11" fill="#8B5CF6" font-weight="bold">Decision triangle:</text>
+  <text x="80" y="533" font-family="'SF Mono',monospace" font-size="11" fill="#5B21B6">Latency ↔ Throughput ↔ Quality  —  pick two, optimize the third</text>
+
+  <!-- ===== Title block ===== -->
+  <rect x="0" y="555" width="1200" height="120" fill="#040008" opacity="0.95"/>
+  <line x1="0" y1="556" x2="1200" y2="556" stroke="#3B0764" stroke-width="1"/>
+
+  <text x="60" y="608" font-family="system-ui,sans-serif" font-size="34" font-weight="700" fill="white" letter-spacing="-0.5">Measuring LLM Deployments</text>
+  <text x="60" y="638" font-family="system-ui,sans-serif" font-size="17" fill="#8B5CF6" letter-spacing="0.2">GuideLLM · lm-eval · The Tradeoff Triangle</text>
+
+  <!-- Tags -->
+  <rect x="840" y="588" width="104" height="22" rx="11" fill="#3B0764" opacity="0.9"/>
+  <text x="892" y="604" font-family="system-ui,sans-serif" font-size="11" fill="#C4B5FD" text-anchor="middle">Benchmarking</text>
+  <rect x="952" y="588" width="82" height="22" rx="11" fill="#3B0764" opacity="0.9"/>
+  <text x="993" y="604" font-family="system-ui,sans-serif" font-size="11" fill="#C4B5FD" text-anchor="middle">Evaluation</text>
+  <rect x="1042" y="588" width="114" height="22" rx="11" fill="#3B0764" opacity="0.9"/>
+  <text x="1099" y="604" font-family="system-ui,sans-serif" font-size="11" fill="#C4B5FD" text-anchor="middle">Production ML</text>
+
+  <text x="840" y="638" font-family="system-ui,sans-serif" font-size="13" fill="#2E1065">Vatsal Thakkar · Aug 2025</text>
+</svg>
